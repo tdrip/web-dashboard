@@ -1,2 +1,4 @@
 # web-dashboard
-A web dashboard with Bootstrap and GoHTMX 
+A web dashboard with Bootstrap and GoHTMX
+
+Updated 
