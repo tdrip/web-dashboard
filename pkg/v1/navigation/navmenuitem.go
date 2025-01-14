@@ -50,7 +50,7 @@ func renderListItems(item NavMenuItem, index int) *h.Element {
 			h.A(
 				h.Class("nav-link"),
 				h.Attribute("href", item.HREF),
-				h.Attribute("terget", "_blank"),
+				h.Attribute("target", "_blank"),
 				h.Text(item.Title),
 			),
 		)
