@@ -18,9 +18,12 @@ const (
 	Row              = "row"
 	Col              = "col"
 	Button           = "btn"
+	TableClass       = "table"
 	ButtonSuccss     = Button + "-success"
 	ButtonPrimary    = Button + "-primary"
+	ButtonSecondary  = Button + "-secondary"
 	ButtonDanger     = Button + "-danger"
+	ButtonWarning    = Button + "-warning"
 )
 
 const ThemeSwitcher = `

@@ -20,7 +20,7 @@ func RenderTable(tr TableRender) *h.Partial {
 			h.Div(
 				h.Class(bootstrap.Row),
 				h.Div(
-					h.Class(bootstrap.Column),
+					h.Class(bootstrap.Col),
 					h.H2(
 						h.Text(tr.GetTitle()),
 					),
@@ -29,7 +29,7 @@ func RenderTable(tr TableRender) *h.Partial {
 			h.Div(
 				h.Class(bootstrap.Row),
 				h.Div(
-					h.Class(bootstrap.Column),
+					h.Class(bootstrap.Col),
 					h.Class("d-grid", "gap-2", "d-md-flex", "justify-content-md-end"),
 					h.Button(
 						h.Class(bootstrap.Button, bootstrap.ButtonSuccss),
@@ -44,9 +44,9 @@ func RenderTable(tr TableRender) *h.Partial {
 			h.Div(
 				h.Class(bootstrap.Row),
 				h.Div(
-					h.Class(bootstrap.Column),
+					h.Class(bootstrap.Col, "table-responsive", "small"),
 					h.Table(
-						h.Class(bootstrap.Table, "delete-row-example"),
+						h.Class(bootstrap.TableClass, "table-striped", "table-sm", "delete-row-example"),
 						getTableHeaders(tr.GetHeaders()),
 						tr.GetTableBody(),
 					),
@@ -65,5 +65,8 @@ func getTableHeaders(headers []string) *h.Element {
 }
 
 func headeritems(item string, index int) *h.Element {
-	return h.Th(h.Text(item))
+	return h.Th(
+		h.Attribute("scope", "col"),
+		h.Text(item),
+	)
 }

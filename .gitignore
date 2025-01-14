@@ -26,3 +26,4 @@ go.work.sum
 examples/simple/main
 examples/simple/main.exe
 examples/simple/public/*
+examples/simple/simple
