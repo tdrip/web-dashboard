@@ -65,3 +65,7 @@ func (dr DefaultRender) GetModalEditUrl(id string) string {
 func (dr DefaultRender) GetDataDelUrl(id string) string {
 	return fmt.Sprintf("%s/%s", dr.DataDelUrl, id)
 }
+
+func (dr DefaultRender) PartialRender(c *h.RequestContext) *h.Partial {
+	return RenderTable(dr)
+}
