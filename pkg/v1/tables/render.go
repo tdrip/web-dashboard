@@ -14,7 +14,7 @@ type TableRender interface {
 	HasNewButton() bool
 	GetModalCreateUrl() string
 	GetModalCreateId() string
-	GetModalEditUrl() string
+	GetModalEditUrl(string) string
 	GetTableBody() *h.Element
 }
 
