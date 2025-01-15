@@ -27,6 +27,8 @@ type Page struct {
 	BodyScripts             []string
 	GetNavMenu              GetNavMenu
 	GetModal                GetModal
+	HasModal                bool
+	ModalID                 string
 	GetBodyHeader           GetBodyHeader
 	GetBodyMain             GetBodyMain
 	HasThemeSwicther        bool
@@ -143,10 +145,27 @@ func (pg Page) checkGetBodyHeader() *h.Element {
 }
 
 func (pg Page) checkGetModals() *h.Element {
-	if pg.GetModal == nil {
+	if !pg.HasModal {
 		return h.Empty()
 	}
 	return pg.GetModal()
+}
+
+func (pg Page) GetEmptyModal() *h.Element {
+	return h.Div(
+		h.Attribute("id", pg.ModalID),
+		h.Class(bootstrap.Modal, bootstrap.ModalBlur, "fade"),
+		h.Attribute("style", "display:none"),
+		h.AriaHidden(false),
+		h.TabIndex(-11),
+		h.Div(
+			h.Class(bootstrap.ModalDialog, bootstrap.ModalLG, bootstrap.ModalDialogCentered),
+			h.Attribute("role", "document"),
+			h.Div(
+				h.Class(bootstrap.ModalContent),
+			),
+		),
+	)
 }
 
 func (pg Page) checkGetNavMenu() *h.Element {
