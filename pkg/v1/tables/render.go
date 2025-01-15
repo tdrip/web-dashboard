@@ -9,37 +9,20 @@ import (
 
 type TableRender interface {
 	GetHeaders() []string
+	HasTitle() bool
 	GetTitle() string
+	HasNewButton() bool
 	GetModalCreateUrl() string
+	GetModalCreateId() string
+	GetModalEditUrl() string
 	GetTableBody() *h.Element
 }
 
 func RenderTable(tr TableRender) *h.Partial {
 	return h.NewPartial(
 		h.Div(
-			h.Div(
-				h.Class(bootstrap.Row),
-				h.Div(
-					h.Class(bootstrap.Col),
-					h.H2(
-						h.Text(tr.GetTitle()),
-					),
-				),
-			),
-			h.Div(
-				h.Class(bootstrap.Row),
-				h.Div(
-					h.Class(bootstrap.Col, "d-grid", "gap-2", "d-md-flex", "justify-content-md-end"),
-					h.Button(
-						h.Class(bootstrap.Button, bootstrap.ButtonSuccss),
-						h.Get(tr.GetModalCreateUrl()),
-						h.Attribute(hx.TargetAttr, "#top-modal"),
-						h.Attribute("data-bs-toggle", "modal"),
-						h.Attribute("data-bs-target", "#top-modal"),
-						h.Text("New"),
-					),
-				),
-			),
+			checkHasTitle(tr),
+			checkGetNew(tr),
 			h.Div(
 				h.Class(bootstrap.Row),
 				h.Div(
@@ -55,6 +38,41 @@ func RenderTable(tr TableRender) *h.Partial {
 	)
 }
 
+func checkHasTitle(tr TableRender) *h.Element {
+	if !tr.HasTitle() {
+		return h.Empty()
+	}
+	return h.Div(
+		h.Class(bootstrap.Row),
+		h.Div(
+			h.Class(bootstrap.Col),
+			h.H2(
+				h.Text(tr.GetTitle()),
+			),
+		),
+	)
+}
+
+func checkGetNew(tr TableRender) *h.Element {
+	if !tr.HasNewButton() {
+		return h.Empty()
+	}
+	return h.Div(
+		h.Class(bootstrap.Row),
+		h.Div(
+			h.Class(bootstrap.Col, "d-grid", "gap-2", "d-md-flex", "justify-content-md-end"),
+			h.Button(
+				h.Class(bootstrap.Button, bootstrap.ButtonSuccss),
+				h.Get(tr.GetModalCreateUrl()),
+				h.Attribute(hx.TargetAttr, tr.GetModalCreateId()),
+				h.Attribute("data-bs-toggle", "modal"),
+				h.Attribute("data-bs-target", tr.GetModalCreateId()),
+				h.Text("New"),
+			),
+		),
+	)
+}
+
 func getTableHeaders(headers []string) *h.Element {
 	return h.THead(
 		h.Tr(
@@ -65,7 +83,7 @@ func getTableHeaders(headers []string) *h.Element {
 
 func headeritems(item string, index int) *h.Element {
 	return h.Th(
-		h.Attribute("scope", "col"),
+		h.Attribute("scope", bootstrap.Col),
 		h.Text(item),
 	)
 }
