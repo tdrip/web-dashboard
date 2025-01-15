@@ -7,7 +7,7 @@ import (
 )
 
 type GetNavMenu func(navitems []navigation.NavMenuItem) *h.Element
-type GetModals func() *h.Element
+type GetModal func(id string) *h.Element
 type GetBodyHeader func() *h.Element
 type GetBodyMain func() *h.Element
 
@@ -26,7 +26,7 @@ type Page struct {
 	BodyRawItem             string
 	BodyScripts             []string
 	GetNavMenu              GetNavMenu
-	GetModals               GetModals
+	GetModal                GetModal
 	GetBodyHeader           GetBodyHeader
 	GetBodyMain             GetBodyMain
 	HasThemeSwicther        bool
@@ -143,10 +143,10 @@ func (pg Page) checkGetBodyHeader() *h.Element {
 }
 
 func (pg Page) checkGetModals() *h.Element {
-	if pg.GetModals == nil {
+	if pg.GetModal == nil {
 		return h.Empty()
 	}
-	return pg.GetModals()
+	return pg.GetModal()
 }
 
 func (pg Page) checkGetNavMenu() *h.Element {

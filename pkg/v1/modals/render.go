@@ -6,46 +6,30 @@ import (
 )
 
 type ModalRender interface {
+	GetId() string
 	GetTitle() string
 	DataCreateURL() string
 	GetModalBody() *h.Element
 }
 
-func EmptyModal() *h.Element {
-	return h.Div(
-		h.Attribute("id", "top-modal"),
-		h.Class("modal", "modal-blur", "fade"),
-		h.Attribute("style", "display:none"),
-		h.AriaHidden(false),
-		h.TabIndex(-11),
-		h.Div(
-			h.Class("modal-dialog", "modal-lg", "modal-dialog-centered"),
-			h.Attribute("role", "document"),
-			h.Div(
-				h.Class("modal-content"),
-			),
-		),
-	)
-}
-
 func RenderModal(mr ModalRender) *h.Partial {
 	return h.NewPartial(
 		h.Div(
-			h.Class("modal-dialog", "modal-dialog-centered"),
+			h.Class(bootstrap.ModalDialog, bootstrap.ModalDialogCentered),
 			h.Div(
-				h.Class("modal-content"),
+				h.Class(bootstrap.ModalContent),
 				h.Form(
 					h.Attribute("hx-post", mr.DataCreateURL()),
 					h.Div(
-						h.Class("modal-header"),
+						h.Class(bootstrap.ModalHeader),
 						h.H5(
-							h.Class("modal-title"),
+							h.Class(bootstrap.ModalTitle),
 							h.Text(mr.GetTitle()),
 						),
 					),
 					mr.GetModalBody(),
 					h.Div(
-						h.Class("modal-footer"),
+						h.Class(bootstrap.ModalFooter),
 						h.Button(
 							h.Class(bootstrap.Button, bootstrap.ButtonSecondary),
 							h.Attribute("type", "button"),
