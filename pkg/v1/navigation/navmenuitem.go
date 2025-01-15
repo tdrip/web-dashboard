@@ -33,7 +33,7 @@ func NewNavHref(title string, href string) NavMenuItem {
 
 func NewNavButton(title string, href string, target string) NavMenuItem {
 	nmi := NavMenuItem{
-		Type:   NavHrefBlank,
+		Type:   NavButton,
 		Title:  title,
 		HREF:   href,
 		Target: target,
