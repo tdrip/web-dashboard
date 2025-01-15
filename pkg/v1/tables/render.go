@@ -29,8 +29,7 @@ func RenderTable(tr TableRender) *h.Partial {
 			h.Div(
 				h.Class(bootstrap.Row),
 				h.Div(
-					h.Class(bootstrap.Col),
-					h.Class("d-grid", "gap-2", "d-md-flex", "justify-content-md-end"),
+					h.Class(bootstrap.Col, "d-grid", "gap-2", "d-md-flex", "justify-content-md-end"),
 					h.Button(
 						h.Class(bootstrap.Button, bootstrap.ButtonSuccss),
 						h.Get(tr.GetModalCreateUrl()),
