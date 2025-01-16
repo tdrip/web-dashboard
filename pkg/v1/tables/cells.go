@@ -6,17 +6,17 @@ import (
 	"github.com/tdrip/web-dashboard/pkg/v1/bootstrap"
 )
 
-func GetActionButtonCell(editurl string, delurl string) *h.Element {
+func GetActionButtonCell(editurl string, delurl string, id string) *h.Element {
 	if len(delurl) > 0 && len(editurl) > 0 {
 		return h.Td(
-			getEditBUtton(editurl),
+			getEditBUtton(editurl, id),
 			getDelBUtton(delurl),
 		)
 	}
 
 	if len(delurl) == 0 && len(editurl) > 0 {
 		return h.Td(
-			getEditBUtton(editurl),
+			getEditBUtton(editurl, id),
 		)
 	}
 	if len(delurl) > 0 && len(editurl) == 0 {
@@ -28,14 +28,14 @@ func GetActionButtonCell(editurl string, delurl string) *h.Element {
 	return h.Td(h.Text(" "))
 }
 
-func getEditBUtton(modalurl string) *h.Element {
+func getEditBUtton(modalurl string, id string) *h.Element {
 	return h.Button(
 		h.Class(bootstrap.Button, bootstrap.ButtonPrimary),
 		h.Get(modalurl),
-		h.Attribute(hx.TargetAttr, "#top-modal"),
+		h.Attribute(hx.TargetAttr, id),
 		h.Attribute(hx.TriggerAttr, "click"),
 		h.Attribute("data-bs-trigger", "modal"),
-		h.Attribute("data-bs-target", "#top-modal"),
+		h.Attribute("data-bs-target", id),
 		h.Text("Edit"),
 	)
 }
