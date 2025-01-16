@@ -5,6 +5,7 @@ import (
 
 	"github.com/maddalax/htmgo/framework/h"
 	"github.com/tdrip/web-dashboard/pkg/v1/bootstrap"
+	"github.com/tdrip/web-dashboard/pkg/v1/controls"
 )
 
 func GetInputControl(id string, title string, name string, value string, readonly bool) *h.Element {
@@ -13,13 +14,12 @@ func GetInputControl(id string, title string, name string, value string, readonl
 			h.Class(bootstrap.MB3, bootstrap.Row),
 			h.LabelFor(id, title),
 			h.TextInput(
-				h.TextInput(
-					h.Class(bootstrap.FormControl),
-					h.Attribute("id", id),
-					h.Attribute("name", name),
-					h.Attribute("value", value),
-					h.Attribute("readonly", "true"),
-				),
+
+				h.Class(bootstrap.FormControl),
+				h.Attribute("id", id),
+				h.Attribute("name", name),
+				h.Attribute("value", value),
+				h.Attribute("readonly", "true"),
 			),
 		)
 	}
@@ -27,31 +27,23 @@ func GetInputControl(id string, title string, name string, value string, readonl
 		h.Class(bootstrap.MB3, bootstrap.Row),
 		h.LabelFor(id, title),
 		h.TextInput(
-			h.TextInput(
-				h.Class(bootstrap.FormControl),
-				h.Attribute("id", id),
-				h.Attribute("name", name),
-				h.Attribute("value", value),
-			),
+			h.Class(bootstrap.FormControl),
+			h.Attribute("id", id),
+			h.Attribute("name", name),
+			h.Attribute("value", value),
 		),
 	)
 }
 
-type Option struct {
-	DisplayName string
-	Value       string
-	Selected    bool
-}
-
 func GetSelectControl(id string, title string, name string, values []string, selectedv string) *h.Element {
-	opts := []Option{}
+	opts := []controls.Option{}
 	for _, v := range values {
-		opts = append(opts, Option{DisplayName: v, Value: v, Selected: strings.EqualFold(v, selectedv)})
+		opts = append(opts, controls.Option{DisplayName: v, Value: v, Selected: strings.EqualFold(v, selectedv)})
 	}
 	return GetSelectControls(id, title, name, opts)
 }
 
-func GetSelectControls(id string, title string, name string, values []Option) *h.Element {
+func GetSelectControls(id string, title string, name string, values []controls.Option) *h.Element {
 	return h.Div(
 		h.Class(bootstrap.MB3, bootstrap.Row),
 		h.LabelFor(id, title),
@@ -64,18 +56,6 @@ func GetSelectControls(id string, title string, name string, values []Option) *h
 	)
 }
 
-func optionItems(value Option, index int) *h.Element {
-
-	if value.Selected {
-		return h.Option(
-			h.Attribute("value", value.Value),
-			h.Attribute("selected", "selected"),
-			h.Text(value.DisplayName),
-		)
-	}
-
-	return h.Option(
-		h.Attribute("value", value.Value),
-		h.Text(value.DisplayName),
-	)
+func optionItems(value controls.Option, index int) *h.Element {
+	return value.ToHTML()
 }
