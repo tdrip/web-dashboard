@@ -37,6 +37,7 @@ type Page struct {
 	UseEmbeddedDashBoardCSS bool
 	UseEmbeddedDashBoardJS  bool
 	UseEmbeddedChartUMDJS   bool
+	Id                      string
 }
 
 func (pg Page) GetPage(ctx *h.RequestContext) *h.Page {
@@ -189,7 +190,7 @@ func scriptItems(item string, index int) *h.Element {
 
 func (pg Page) GetEmptyMain() *h.Element {
 	return h.Main(
-		h.Attribute("id", "page-data"),
+		h.Attribute("id", pg.Id),
 		h.Class(bootstrap.ColMD9, "ms-sm-atuo", bootstrap.ColLG10, "px-md-4"),
 		h.H2F(pg.Title),
 	)
