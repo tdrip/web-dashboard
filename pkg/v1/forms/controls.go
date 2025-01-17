@@ -9,29 +9,16 @@ import (
 )
 
 func GetInputControl(id string, title string, name string, value string, readonly bool) *h.Element {
-	if readonly {
-		return h.Div(
-			h.Class(bootstrap.MB3, bootstrap.Row),
-			h.LabelFor(id, title),
-			h.TextInput(
-
-				h.Class(bootstrap.FormControl),
-				h.Attribute("id", id),
-				h.Attribute("name", name),
-				h.Attribute("value", value),
-				h.Attribute("readonly", "true"),
-			),
-		)
-	}
+	ti := controls.TextInput{}
+	ti.Id = id
+	ti.Title = title
+	ti.Name = name
+	ti.ReadOnly = readonly
+	ti.Value = value
 	return h.Div(
 		h.Class(bootstrap.MB3, bootstrap.Row),
 		h.LabelFor(id, title),
-		h.TextInput(
-			h.Class(bootstrap.FormControl),
-			h.Attribute("id", id),
-			h.Attribute("name", name),
-			h.Attribute("value", value),
-		),
+		ti.ToHTML(),
 	)
 }
 
@@ -56,6 +43,6 @@ func GetSelectControls(id string, title string, name string, values []controls.O
 	)
 }
 
-func optionItems(value controls.Option, index int) *h.Element {
-	return value.ToHTML()
+func optionItems(opt controls.Option, index int) *h.Element {
+	return opt.ToHTML()
 }
