@@ -1,17 +1,22 @@
 package tables
 
 import (
+	"time"
+
 	"github.com/maddalax/htmgo/framework/h"
 	"github.com/maddalax/htmgo/framework/hx"
 
 	bootstrap "github.com/tdrip/web-dashboard/pkg/v1/bootstrap"
 )
 
+const layout = "01-02-2006 15:04:05"
+
 type TableRender interface {
 	GetHeaders() []string
 	HasTitle() bool
 	GetTitle() string
 	HasNewButton() bool
+	HasUpdateTime() bool
 	GetModalCreateUrl() string
 	GetModalCreateId() string
 	GetModalEditUrl(string) string
@@ -22,6 +27,7 @@ func RenderTable(tr TableRender) *h.Partial {
 	return h.NewPartial(
 		h.Div(
 			checkHasTitle(tr),
+			checkUpdateTime(tr),
 			checkGetNew(tr),
 			h.Div(
 				h.Class(bootstrap.Row),
@@ -34,6 +40,19 @@ func RenderTable(tr TableRender) *h.Partial {
 					),
 				),
 			),
+		),
+	)
+}
+
+func checkUpdateTime(tr TableRender) *h.Element {
+	if !tr.HasUpdateTime() {
+		return h.Empty()
+	}
+	return h.Div(
+		h.Class(bootstrap.Row),
+		h.Div(
+			h.Class(bootstrap.Col),
+			h.Pf("Fetched: %s", time.Now().Format(layout)),
 		),
 	)
 }
