@@ -1,25 +1,60 @@
 package controls
 
-import "github.com/maddalax/htmgo/framework/h"
+import (
+	"strings"
+
+	"github.com/maddalax/htmgo/framework/h"
+)
 
 type Option struct {
-	DisplayName string
-	Value       string
-	Selected    bool
+	BaseControl
+	Text       string
+	Value      string
+	Selected   bool
+	Attributes []*h.AttributeR
+	Classes    []string
 }
 
-func (opt Option) ToHTML() *h.Element {
+func NewSimpleOption(v string, selectedv string) Option {
+	return Option{
+		//BaseControlImp: BaseControlImp{
+		Text: v,
+		//},
+		Value:    v,
+		Selected: strings.EqualFold(v, selectedv),
+	}
+}
 
-	if opt.Selected {
-		return h.Option(
-			h.Attribute("value", opt.Value),
-			h.Attribute("selected", "selected"),
-			h.Text(opt.DisplayName),
-		)
+func (ctrl Option) GetClasses() []string {
+	return ctrl.Classes
+}
+
+func (ctrl Option) SetClassses(classes []string) BaseControl {
+	ctrl.Classes = SetClassses(ctrl, classes)
+	return ctrl
+}
+
+func (ctrl Option) GetAtts() []*h.AttributeR {
+	return ctrl.Attributes
+}
+
+func (ctrl Option) SetAtts(atts []*h.AttributeR) BaseControl {
+	ctrl.Attributes = SetAtts(ctrl, atts)
+	return ctrl
+}
+
+func (ctrl Option) ToHTML() *h.Element {
+	atts := ctrl.Attributes
+
+	atts = append(atts, &h.AttributeR{Name: "value", Value: ctrl.Value})
+
+	if ctrl.Selected {
+		atts = append(atts, &h.AttributeR{Name: "selected", Value: "selected"})
 	}
 
 	return h.Option(
-		h.Attribute("value", opt.Value),
-		h.Text(opt.DisplayName),
+		h.Class(ctrl.Classes...),
+		h.AttributeList(atts...),
+		h.Text(ctrl.Text),
 	)
 }

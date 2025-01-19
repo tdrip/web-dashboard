@@ -13,11 +13,38 @@ type Handler struct {
 }
 
 type Handlers struct {
-	Pages    []PageRenderHandler
-	Partials []PartialRenderHandler
+	Pages     []PageRenderHandler
+	Partials  []PartialRenderHandler
+	IPartials []PartialRenderHandler
 }
 
 func (h Handlers) RegisterRouter(router chi.Router) {
+
+	for _, hndlr := range h.IPartials {
+		switch hndlr.HttpMethod {
+		case http.MethodGet:
+			router.Get(hndlr.Uri, func(writer http.ResponseWriter, request *http.Request) {
+				render.RenderIPartial(request, writer, hndlr.IPartial)
+			})
+		case http.MethodDelete:
+			router.Delete(hndlr.Uri, func(writer http.ResponseWriter, request *http.Request) {
+				render.RenderIPartial(request, writer, hndlr.IPartial)
+			})
+		case http.MethodPost:
+			router.Post(hndlr.Uri, func(writer http.ResponseWriter, request *http.Request) {
+				render.RenderIPartial(request, writer, hndlr.IPartial)
+			})
+		case http.MethodPut:
+			router.Put(hndlr.Uri, func(writer http.ResponseWriter, request *http.Request) {
+				render.RenderIPartial(request, writer, hndlr.IPartial)
+			})
+		case http.MethodHead:
+			router.Head(hndlr.Uri, func(writer http.ResponseWriter, request *http.Request) {
+				render.RenderIPartial(request, writer, hndlr.IPartial)
+			})
+		}
+	}
+
 	for _, hndlr := range h.Partials {
 		switch hndlr.HttpMethod {
 		case http.MethodGet:

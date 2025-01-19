@@ -3,6 +3,7 @@ package handlers
 import (
 	"github.com/maddalax/htmgo/framework/h"
 	"github.com/tdrip/web-dashboard/pkg/v1/modals"
+	"github.com/tdrip/web-dashboard/pkg/v1/render"
 	"github.com/tdrip/web-dashboard/pkg/v1/tables"
 )
 
@@ -12,11 +13,16 @@ type GetFullRender func(c *h.RequestContext) *h.Page
 type PartialRenderHandler struct {
 	Handler
 	Renderer GetRender
+	IPartial render.IPartial
 }
 
 type PageRenderHandler struct {
 	Handler
 	Renderer GetFullRender
+}
+
+func NewIPartialRenderHandler(method string, uri string, render render.IPartial) PartialRenderHandler {
+	return PartialRenderHandler{Handler: Handler{HttpMethod: method, Uri: uri}, IPartial: render}
 }
 
 func NewModalRenderHandler(method string, uri string, mr modals.ModalRender) PartialRenderHandler {

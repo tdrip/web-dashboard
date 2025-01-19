@@ -2,35 +2,48 @@ package controls
 
 import (
 	"github.com/maddalax/htmgo/framework/h"
-	"github.com/maddalax/htmgo/framework/hx"
 )
 
 type Button struct {
-	GetUrl   string
-	Id       string
-	HXTarget string
-	BSTarget string
-	BSToggle string
-	Classes  []string
-	Text     string
+	BaseControl
+	GetUrl     string
+	Attributes []*h.AttributeR
+	Classes    []string
+	Text       string
 }
 
-func (btn Button) ToHTML() *h.Element {
+func (ctrl Button) GetClasses() []string {
+	return ctrl.Classes
+}
+
+func (ctrl Button) SetClassses(classes []string) BaseControl {
+	ctrl.Classes = SetClassses(ctrl, classes)
+	return ctrl
+}
+
+func (ctrl Button) GetAtts() []*h.AttributeR {
+	return ctrl.Attributes
+}
+
+func (ctrl Button) SetAtts(atts []*h.AttributeR) BaseControl {
+	ctrl.Attributes = SetAtts(ctrl, atts)
+	return ctrl
+}
+
+func (ctrl Button) ToHTML() *h.Element {
+
+	if len(ctrl.GetUrl) == 0 {
+		return h.Button(
+			h.Class(ctrl.Classes...),
+			h.AttributeList(ctrl.Attributes...),
+			h.Text(ctrl.Text),
+		)
+	}
+
 	return h.Button(
-		h.Class(btn.Classes...),
-		h.Get(btn.GetUrl),
-		h.Attribute(hx.TargetAttr, btn.HXTarget),
-		h.Attribute("data-bs-toggle", "modal"),
-		h.Attribute("data-bs-target", btn.BSTarget),
-		h.Text(btn.Text),
+		h.Class(ctrl.Classes...),
+		h.Get(ctrl.GetUrl),
+		h.AttributeList(ctrl.Attributes...),
+		h.Text(ctrl.Text),
 	)
 }
-
-/*
-h.Button(
-	h.Class(bootstrap.Button, bootstrap.ButtonSecondary),
-	h.Attribute("type", "button"),
-	h.Attribute("data-bs-dismiss", "modal"),
-	h.Text("Close"),
-),
-*/

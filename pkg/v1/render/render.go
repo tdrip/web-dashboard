@@ -25,3 +25,12 @@ func RenderPartial(req *http.Request, w http.ResponseWriter, partial func(ctx *h
 	}
 	h.PartialView(w, partial(&ctx))
 }
+
+func RenderIPartial(req *http.Request, w http.ResponseWriter, ip IPartial) {
+	ctx := h.RequestContext{
+		Request:  req,
+		Response: w,
+	}
+	updated := ip.DataFromContext(&ctx)
+	h.PartialView(w, updated.Render())
+}
