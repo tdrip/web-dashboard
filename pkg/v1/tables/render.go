@@ -19,7 +19,6 @@ type TableRender interface {
 	HasUpdateTime() bool
 	GetModalCreateUrl() string
 	GetModalCreateId() string
-	GetModalEditUrl(string) string
 	GetTable() controls.Table
 }
 

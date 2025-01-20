@@ -29,15 +29,20 @@ func (ef EditForm) DataFromContext(ctx *h.RequestContext) render.IPartial {
 func (ef EditForm) Render() *h.Partial {
 	return h.NewPartial(
 		h.Div(
-			ef.checkEFHasTitle(),
-			h.Div(
+			h.Form(
 				h.Class(ef.Classes...),
 				h.AttributeList(ef.Attributes...),
-				h.List(ef.Controls, ListFormControls),
-			),
-			h.Div(
-				h.Class("d-flex", "gap-2", "justify-content-center", "py-5"),
-				h.List(ef.Buttons, ListFormButtons),
+				ef.checkEFHasTitle(),
+				h.Div(
+					h.List(ef.Controls, ListFormControls),
+				),
+				h.Div(
+					h.Class(bootstrap.Row),
+					h.Div(
+						h.Class("d-flex", "gap-2", "justify-content-center", "py-5"),
+						h.List(ef.Buttons, ListFormButtons),
+					),
+				),
 			),
 		),
 	)

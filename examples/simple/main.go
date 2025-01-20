@@ -29,9 +29,6 @@ func main() {
 	pg.HasThemeSwicther = true
 	pg.HeaderRawItem = bootstrap.DashBoardStyle
 	pg.GetBodyMain = pg.GetEmptyMain
-	//pg.BodyRawItem = `
-	//<canvas class="my-4 w-100" id="myChart" width="1153" height="487" style="display: block; box-sizing: border-box; height: 487px; width: 1153px;"></canvas>
-	//`
 	pg.HeaderScripts = []string{
 		"/public/color-modes.js",
 	}
@@ -45,7 +42,6 @@ func main() {
 
 	pg.BodyScripts = []string{
 		"/public/bootstrap.bundle.min.js",
-		//"/public/chart.umd.js",
 		"/public/dashboard.js",
 		"/public/htmgo.js",
 	}
@@ -53,24 +49,7 @@ func main() {
 	pg.GetNavMenu = navigation.GetNavigation
 	pg.GetBodyHeader = pg.SimpleNav
 	pg.NavMenuItems = []navigation.NavMenuItem{
-		/*
-			{
-				Title: "SHow table",
-				Type:  2,
-				HREF:  "/showtable",
-			},
-		*/
 		navigation.NewNavButton("show table", "/showtable", "#mainpage"),
-		/*{
-			Title: "A Link",
-			Type:  2,
-			HREF:  "/",
-		},
-		{
-			Title: "Test",
-			Type:  1,
-		},
-		*/
 	}
 
 	//index
@@ -107,9 +86,6 @@ func NewSillyForm() SillyForm {
 			Title: "Item Title",
 			Name:  "itemname",
 			Cntrl: controls.TextInput{
-				//BaseControlImp: controls.BaseControlImp{
-				//	Text: "Ignored?",
-				//},
 				ReadOnly: false,
 				Value:    "Unknown",
 			},
@@ -184,7 +160,6 @@ func GetFakeFormData(c *h.RequestContext, ip render.IPartial) render.IPartial {
 			ti := ct.(controls.TextInput)
 			ti.Value = fmt.Sprintf("Value: %s", cid)
 			ti.ReadOnly = false
-			//ti.BaseControlImp = controls.BaseControlImp{Text: "Updated?"}
 			ncntl.Cntrl = ti
 		}
 		cntrls = append(cntrls, ncntl)
@@ -252,7 +227,7 @@ func GetTableRows() *h.Element {
 func MakeCells(item string, index int) *h.Element {
 	buttons := []controls.Button{
 		{
-			//BaseControlImp: controls.BaseControlImp{
+
 			Text: "goo",
 			Classes: []string{
 				bootstrap.Button,
@@ -268,17 +243,14 @@ func MakeCells(item string, index int) *h.Element {
 					Value: "#mainpage",
 				},
 			},
-			//},
 			GetUrl: fmt.Sprintf(strings.Replace("/edititem/{id}", "{id}", fmt.Sprintf("testid%d", index), -1)),
 		},
 		{
-			//BaseControlImp: controls.BaseControlImp{
 			Text: "goo1",
 			Classes: []string{
-				"btn",
+				bootstrap.Button,
 				bootstrap.ButtonSuccess,
 			},
-			//},
 		},
 	}
 	return h.Tr(
