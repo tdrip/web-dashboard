@@ -17,9 +17,7 @@ type Option struct {
 
 func NewSimpleOption(v string, selectedv string) Option {
 	return Option{
-		//BaseControlImp: BaseControlImp{
-		Text: v,
-		//},
+		Text:     v,
 		Value:    v,
 		Selected: strings.EqualFold(v, selectedv),
 	}
