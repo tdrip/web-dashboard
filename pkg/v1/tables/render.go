@@ -13,7 +13,6 @@ import (
 const layout = "01-02-2006 15:04:05"
 
 type TableRender interface {
-	GetHeaders() controls.TableHeaders
 	HasTitle() bool
 	GetTitle() string
 	HasNewButton() bool
@@ -21,11 +20,11 @@ type TableRender interface {
 	GetModalCreateUrl() string
 	GetModalCreateId() string
 	GetModalEditUrl(string) string
-	GetTableBody() *h.Element
+	GetTable() controls.Table
 }
 
 func RenderTable(tr TableRender) *h.Partial {
-	th := tr.GetHeaders()
+	tbl := tr.GetTable()
 	return h.NewPartial(
 		h.Div(
 			checkHasTitle(tr),
@@ -34,12 +33,8 @@ func RenderTable(tr TableRender) *h.Partial {
 			h.Div(
 				h.Class(bootstrap.Row),
 				h.Div(
-					h.Class(bootstrap.Col, "table-responsive", "small"),
-					h.Table(
-						h.Class(bootstrap.TableClass, "table-striped", "table-sm", "delete-row-example"),
-						th.ToHTML(),
-						tr.GetTableBody(),
-					),
+					h.Class(bootstrap.Col),
+					tbl.ToHTML(),
 				),
 			),
 		),

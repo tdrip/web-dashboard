@@ -32,10 +32,6 @@ func main() {
 	//pg.BodyRawItem = `
 	//<canvas class="my-4 w-100" id="myChart" width="1153" height="487" style="display: block; box-sizing: border-box; height: 487px; width: 1153px;"></canvas>
 	//`
-	pg.UseEmbeddedBootstrapCSS = false
-	pg.UseEmbeddedBootstrapJS = false
-	pg.UseEmbeddedDashBoardCSS = false
-	pg.UseEmbeddedDashBoardJS = false
 	pg.HeaderScripts = []string{
 		"/public/color-modes.js",
 	}
@@ -133,6 +129,12 @@ func NewSillyForm() SillyForm {
 				},
 			},
 		},
+		{
+			Id:    "itemtable",
+			Title: "Update this table",
+			Name:  "itemname",
+			Cntrl: getTable(),
+		},
 	}
 	sf.Buttons = []controls.Button{
 		{
@@ -196,9 +198,21 @@ type SimpleRender struct {
 	tables.TableRender
 }
 
-func (sr SimpleRender) GetHeaders() controls.TableHeaders {
-	return controls.GetSimpleTableHeaders([]string{"col1", "col2", "actions"})
+func getTable() controls.Table {
+	tbl := controls.Table{}
+
+	tbl.Classes = controls.SetClassses(tbl, []string{"table-responsive", "small", bootstrap.TableClass, "table-striped", "table-sm", "delete-row-example"})
+	tbl.TableHeaders = controls.GetSimpleTableHeaders([]string{"col1", "col2", "actions"})
+	tbl.TableBody = controls.TableBody{
+		GetTableRows: GetTableRows,
+	}
+	return tbl
 }
+
+func (sr SimpleRender) GetTable() controls.Table {
+	return getTable()
+}
+
 func (sr SimpleRender) HasTitle() bool {
 	return true
 }
@@ -226,16 +240,13 @@ func (sr SimpleRender) GetModalEditUrl(string) string {
 	return "Table title"
 }
 
-func (sr SimpleRender) GetTableBody() *h.Element {
+func GetTableRows() *h.Element {
 	rows := []string{}
 
 	for i := 0; i < 100; i++ {
 		rows = append(rows, fmt.Sprintf("row%d", i))
 	}
-
-	return h.TBody(
-		h.List(rows, MakeCells),
-	)
+	return h.List(rows, MakeCells)
 }
 
 func MakeCells(item string, index int) *h.Element {
@@ -271,12 +282,12 @@ func MakeCells(item string, index int) *h.Element {
 		},
 	}
 	return h.Tr(
-		tables.GetTextCell(item+" col1"),
-		tables.GetTextCell(item+" col2"),
-		tables.GetButtonCell(buttons),
+		controls.GetTextCell(item+" col1"),
+		controls.GetTextCell(item+" col2"),
+		controls.GetButtonCell(buttons),
 	)
 }
 
 func getCells(item string, index int) *h.Element {
-	return tables.GetTextCell(item)
+	return controls.GetTextCell(item)
 }
