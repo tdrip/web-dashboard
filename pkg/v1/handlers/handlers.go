@@ -107,3 +107,9 @@ func AddPartial(h *Handlers, prh PartialRenderHandler) {
 	handlers = append(handlers, prh)
 	h.Partials = handlers
 }
+
+func AddIPartial(h *Handlers, prh PartialRenderHandler) {
+	handlers := h.IPartials
+	handlers = append(handlers, prh)
+	h.IPartials = handlers
+}
