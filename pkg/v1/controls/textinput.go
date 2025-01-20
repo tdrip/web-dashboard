@@ -9,10 +9,7 @@ type TextInput struct {
 	BaseControl
 	Attributes []*h.AttributeR
 	Classes    []string
-	Id         string
 	ReadOnly   bool
-	Name       string
-	Value      string
 }
 
 func (ti TextInput) GetClasses() []string {
@@ -35,9 +32,6 @@ func (ti TextInput) SetAtts(atts []*h.AttributeR) BaseControl {
 
 func (ti TextInput) ToHTML() *h.Element {
 
-	ti.Attributes = SetAttId(ti, ti.Id)
-	ti.Attributes = SetAttName(ti, ti.Name)
-	ti.Attributes = SetAttValue(ti, ti.Value)
 	if ti.ReadOnly {
 		ti.Attributes = SetAtt(ti, "readonly", "true")
 	}

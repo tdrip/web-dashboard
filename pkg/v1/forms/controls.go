@@ -14,7 +14,7 @@ func GetInputControl(id string, title string, name string, value string, readonl
 
 	ti := controls.TextInput{}
 	ti.ReadOnly = readonly
-	ti.Value = value
+	ti.Attributes = controls.SetAttValue(ti, value)
 	fc.Cntrl = ti
 
 	return ListFormControls(fc, -1)

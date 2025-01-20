@@ -86,8 +86,8 @@ func NewSillyForm() SillyForm {
 			Title: "Item Title",
 			Name:  "itemname",
 			Cntrl: controls.TextInput{
-				ReadOnly: false,
-				Value:    "Unknown",
+				ReadOnly:   false,
+				Attributes: []*h.AttributeR{controls.GetAttValue("Unknown")},
 			},
 		},
 		{
@@ -158,7 +158,7 @@ func GetFakeFormData(c *h.RequestContext, ip render.IPartial) render.IPartial {
 		if ncntl.Id == "itemid" {
 			ct := cntl.Cntrl
 			ti := ct.(controls.TextInput)
-			ti.Value = fmt.Sprintf("Value: %s", cid)
+			ti.Attributes = controls.SetAttValue(ti, fmt.Sprintf("Value: %s", cid))
 			ti.ReadOnly = false
 			ncntl.Cntrl = ti
 		}

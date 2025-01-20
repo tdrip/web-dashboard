@@ -48,9 +48,10 @@ func SetAttName(bci BaseControl, Name string) []*h.AttributeR {
 	return SetAttR(bci, GetAttName(Name))
 }
 
-func GetAttValue(Name string) *h.AttributeR {
-	return &h.AttributeR{Name: "name", Value: Name}
+func GetAttValue(Value string) *h.AttributeR {
+	return &h.AttributeR{Name: "value", Value: Value}
 }
+
 func SetAttValue(bci BaseControl, Value string) []*h.AttributeR {
 	return SetAttR(bci, GetAttValue(Value))
 }
