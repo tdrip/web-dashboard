@@ -11,12 +11,6 @@ type Select struct {
 	Classes    []string
 }
 
-func (ctrl Select) ToHTML() *h.Element {
-	return h.Select(
-		h.List(ctrl.Options, OptionItems),
-	)
-}
-
 func (ctrl Select) GetClasses() []string {
 	return ctrl.Classes
 }
@@ -33,6 +27,14 @@ func (ctrl Select) GetAtts() []*h.AttributeR {
 func (ctrl Select) SetAtts(atts []*h.AttributeR) BaseControl {
 	ctrl.Attributes = SetAtts(ctrl, atts)
 	return ctrl
+}
+
+func (ctrl Select) ToHTML() *h.Element {
+	return h.Select(
+		h.Class(ctrl.Classes...),
+		h.AttributeList(ctrl.Attributes...),
+		h.List(ctrl.Options, OptionItems),
+	)
 }
 
 func OptionItems(opt Option, index int) *h.Element {
