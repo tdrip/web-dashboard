@@ -123,11 +123,44 @@ func NewSillyForm() SillyForm {
 			Title: "Select something",
 			Name:  "itemname",
 			Cntrl: controls.Select{
+				Classes: []string{
+					bootstrap.FormSelect,
+				},
 				Options: []controls.Option{
 					controls.NewSimpleOption("opt1", "opt2"),
 					controls.NewSimpleOption("opt2", "opt2"),
 					controls.NewSimpleOption("opt3", "opt2"),
 				},
+			},
+		},
+	}
+	sf.Buttons = []controls.Button{
+		{
+			Text: "Back",
+			Classes: []string{
+				bootstrap.Button,
+				bootstrap.ButtonPrimary,
+			},
+			Attributes: []*h.AttributeR{
+				{
+					Name:  hx.TargetAttr,
+					Value: "#mainpage",
+				},
+				{
+					Name:  hx.GetAttr,
+					Value: "/showtable",
+				},
+				{
+					Name:  hx.SwapAttr,
+					Value: hx.SwapTypeInnerHtml,
+				},
+			},
+		},
+		{
+			Text: "Save",
+			Classes: []string{
+				bootstrap.Button,
+				bootstrap.ButtonSuccess,
 			},
 		},
 	}
@@ -163,8 +196,8 @@ type SimpleRender struct {
 	tables.TableRender
 }
 
-func (sr SimpleRender) GetHeaders() []string {
-	return []string{"col1", "col2", "actions"}
+func (sr SimpleRender) GetHeaders() controls.TableHeaders {
+	return controls.GetSimpleTableHeaders([]string{"col1", "col2", "actions"})
 }
 func (sr SimpleRender) HasTitle() bool {
 	return true
@@ -176,18 +209,23 @@ func (sr SimpleRender) GetTitle() string {
 func (sr SimpleRender) HasNewButton() bool {
 	return true
 }
+
 func (sr SimpleRender) HasUpdateTime() bool {
 	return true
 }
+
 func (sr SimpleRender) GetModalCreateUrl() string {
 	return "Table title"
 }
+
 func (sr SimpleRender) GetModalCreateId() string {
 	return "Table title"
 }
+
 func (sr SimpleRender) GetModalEditUrl(string) string {
 	return "Table title"
 }
+
 func (sr SimpleRender) GetTableBody() *h.Element {
 	rows := []string{}
 
@@ -206,7 +244,7 @@ func MakeCells(item string, index int) *h.Element {
 			//BaseControlImp: controls.BaseControlImp{
 			Text: "goo",
 			Classes: []string{
-				"btn",
+				bootstrap.Button,
 				bootstrap.ButtonDanger,
 			},
 			Attributes: []*h.AttributeR{
@@ -227,7 +265,7 @@ func MakeCells(item string, index int) *h.Element {
 			Text: "goo1",
 			Classes: []string{
 				"btn",
-				bootstrap.ButtonSuccss,
+				bootstrap.ButtonSuccess,
 			},
 			//},
 		},
