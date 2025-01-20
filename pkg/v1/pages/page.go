@@ -17,27 +17,22 @@ type Link struct {
 }
 
 type Page struct {
-	NavMenuItems            []navigation.NavMenuItem
-	Header                  string
-	Title                   string
-	HeaderScripts           []string
-	HeaderLinks             []Link
-	HeaderRawItem           string
-	BodyRawItem             string
-	BodyScripts             []string
-	GetNavMenu              GetNavMenu
-	GetModal                GetModal
-	HasModal                bool
-	ModalID                 string
-	GetBodyHeader           GetBodyHeader
-	GetBodyMain             GetBodyMain
-	HasThemeSwicther        bool
-	UseEmbeddedBootstrapCSS bool
-	UseEmbeddedBootstrapJS  bool
-	UseEmbeddedDashBoardCSS bool
-	UseEmbeddedDashBoardJS  bool
-	UseEmbeddedChartUMDJS   bool
-	Id                      string
+	NavMenuItems     []navigation.NavMenuItem
+	Header           string
+	Title            string
+	HeaderScripts    []string
+	HeaderLinks      []Link
+	HeaderRawItem    string
+	BodyRawItem      string
+	BodyScripts      []string
+	GetNavMenu       GetNavMenu
+	GetModal         GetModal
+	HasModal         bool
+	ModalID          string
+	GetBodyHeader    GetBodyHeader
+	GetBodyMain      GetBodyMain
+	HasThemeSwicther bool
+	Id               string
 }
 
 func (pg Page) GetPage(ctx *h.RequestContext) *h.Page {
@@ -54,8 +49,6 @@ func (pg Page) GetPage(ctx *h.RequestContext) *h.Page {
 				h.Title(h.Text(pg.Title)),
 				h.List(pg.HeaderScripts, scriptItems),
 				getLinks(pg.HeaderLinks),
-				pg.checkEmbeddedBootstrapCSS(),
-				pg.checkEmbeddedDashboardCSS(),
 				h.UnsafeRaw(pg.HeaderRawItem),
 			),
 			pg.checkPage(),
@@ -78,50 +71,7 @@ func (pg Page) checkPage() *h.Element {
 			),
 		),
 		h.List(pg.BodyScripts, scriptItems),
-		h.UnsafeRaw(pg.checkEmbeddedBootstrapJS()),
-		h.UnsafeRaw(pg.checkEmbeddedChartUMDJS()),
-		h.UnsafeRaw(pg.checkEmbeddedDashboardJS()),
 	)
-}
-
-func (pg Page) checkEmbeddedChartUMDJS() string {
-
-	if pg.UseEmbeddedDashBoardJS {
-		return bootstrap.ChartUMD432JS
-	}
-
-	if !pg.UseEmbeddedChartUMDJS {
-		return ""
-	}
-	return bootstrap.ChartUMD432JS
-}
-
-func (pg Page) checkEmbeddedDashboardJS() string {
-	if !pg.UseEmbeddedDashBoardJS {
-		return ""
-	}
-	return bootstrap.DashboardJS
-}
-
-func (pg Page) checkEmbeddedDashboardCSS() *h.Element {
-	if !pg.UseEmbeddedDashBoardCSS {
-		return h.Empty()
-	}
-	return h.Style(bootstrap.DashboardCSS)
-}
-
-func (pg Page) checkEmbeddedBootstrapCSS() *h.Element {
-	if !pg.UseEmbeddedBootstrapCSS {
-		return h.Empty()
-	}
-	return h.Style(bootstrap.CSS533)
-}
-
-func (pg Page) checkEmbeddedBootstrapJS() string {
-	if !pg.UseEmbeddedBootstrapJS {
-		return ""
-	}
-	return bootstrap.JS533
 }
 
 func (pg Page) checkGetThemeSwitcher() string {
