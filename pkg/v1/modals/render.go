@@ -38,7 +38,7 @@ func RenderModal(mr ModalRender) *h.Partial {
 						),
 
 						h.Button(
-							h.Class(bootstrap.Button, bootstrap.ButtonSuccss),
+							h.Class(bootstrap.Button, bootstrap.ButtonSuccess),
 							h.Attribute("data-bs-dismiss", "modal"),
 							h.Text("Save"),
 						),

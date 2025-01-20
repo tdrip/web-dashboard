@@ -7,12 +7,13 @@ import (
 	"github.com/maddalax/htmgo/framework/hx"
 
 	bootstrap "github.com/tdrip/web-dashboard/pkg/v1/bootstrap"
+	"github.com/tdrip/web-dashboard/pkg/v1/controls"
 )
 
 const layout = "01-02-2006 15:04:05"
 
 type TableRender interface {
-	GetHeaders() []string
+	GetHeaders() controls.TableHeaders
 	HasTitle() bool
 	GetTitle() string
 	HasNewButton() bool
@@ -24,6 +25,7 @@ type TableRender interface {
 }
 
 func RenderTable(tr TableRender) *h.Partial {
+	th := tr.GetHeaders()
 	return h.NewPartial(
 		h.Div(
 			checkHasTitle(tr),
@@ -35,7 +37,7 @@ func RenderTable(tr TableRender) *h.Partial {
 					h.Class(bootstrap.Col, "table-responsive", "small"),
 					h.Table(
 						h.Class(bootstrap.TableClass, "table-striped", "table-sm", "delete-row-example"),
-						getTableHeaders(tr.GetHeaders()),
+						th.ToHTML(),
 						tr.GetTableBody(),
 					),
 				),
@@ -76,33 +78,35 @@ func checkGetNew(tr TableRender) *h.Element {
 	if !tr.HasNewButton() {
 		return h.Empty()
 	}
+
+	newbtn := controls.Button{
+		Text: "New",
+		Classes: []string{
+			bootstrap.Button,
+			bootstrap.ButtonSuccess,
+		},
+		GetUrl: tr.GetModalCreateUrl(),
+		Attributes: []*h.AttributeR{
+			{
+				Name:  hx.TargetAttr,
+				Value: tr.GetModalCreateId(),
+			},
+			{
+				Name:  "data-bs-toggle",
+				Value: "modal",
+			},
+			{
+				Name:  "data-bs-target",
+				Value: tr.GetModalCreateId(),
+			},
+		},
+	}
+
 	return h.Div(
 		h.Class(bootstrap.Row),
 		h.Div(
 			h.Class(bootstrap.Col, "d-grid", "gap-2", "d-md-flex", "justify-content-md-end"),
-			h.Button(
-				h.Class(bootstrap.Button, bootstrap.ButtonSuccss),
-				h.Get(tr.GetModalCreateUrl()),
-				h.Attribute(hx.TargetAttr, tr.GetModalCreateId()),
-				h.Attribute("data-bs-toggle", "modal"),
-				h.Attribute("data-bs-target", tr.GetModalCreateId()),
-				h.Text("New"),
-			),
+			newbtn.ToHTML(),
 		),
-	)
-}
-
-func getTableHeaders(headers []string) *h.Element {
-	return h.THead(
-		h.Tr(
-			h.List(headers, headeritems),
-		),
-	)
-}
-
-func headeritems(item string, index int) *h.Element {
-	return h.Th(
-		h.Attribute("scope", bootstrap.Col),
-		h.Text(item),
 	)
 }

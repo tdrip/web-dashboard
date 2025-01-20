@@ -31,11 +31,12 @@ const (
 	Col                 = "col"
 	Button              = "btn"
 	TableClass          = "table"
-	ButtonSuccss        = Button + "-success"
+	ButtonSuccess       = Button + "-success"
 	ButtonPrimary       = Button + "-primary"
 	ButtonSecondary     = Button + "-secondary"
 	ButtonDanger        = Button + "-danger"
 	ButtonWarning       = Button + "-warning"
+	FormSelect          = "form-select"
 )
 
 const ThemeSwitcher = `
