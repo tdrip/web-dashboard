@@ -1,8 +1,6 @@
 package forms
 
 import (
-	"fmt"
-
 	"github.com/maddalax/htmgo/framework/h"
 	"github.com/tdrip/web-dashboard/pkg/v1/bootstrap"
 	"github.com/tdrip/web-dashboard/pkg/v1/controls"
@@ -29,11 +27,6 @@ func ListFormControls(fc FormControl, index int) *h.Element {
 	classes = append(classes, bootstrap.FormControl)
 	updatedcntrl = updatedcntrl.SetClassses(classes)
 	fc.Cntrl = updatedcntrl
-
-	fmt.Println("working on " + fc.Id)
-	fmt.Printf("fc %v\n", fc)
-	fmt.Printf("Cntrl %v\n", fc.Cntrl)
-	fmt.Printf("updatedcntrl %v\n", updatedcntrl)
 
 	return h.Div(
 		h.Class(bootstrap.MB3, bootstrap.Row),
