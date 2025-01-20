@@ -3,6 +3,7 @@ package forms
 import (
 	"github.com/maddalax/htmgo/framework/h"
 	"github.com/tdrip/web-dashboard/pkg/v1/bootstrap"
+	"github.com/tdrip/web-dashboard/pkg/v1/controls"
 	"github.com/tdrip/web-dashboard/pkg/v1/render"
 )
 
@@ -11,6 +12,7 @@ type GetFormData func(c *h.RequestContext, ip render.IPartial) render.IPartial
 type EditForm struct {
 	render.IPartial
 	Controls    []FormControl
+	Buttons     []controls.Button
 	Attributes  []*h.AttributeR
 	Classes     []string
 	GetFormData GetFormData
@@ -32,6 +34,10 @@ func (ef EditForm) Render() *h.Partial {
 				h.Class(ef.Classes...),
 				h.AttributeList(ef.Attributes...),
 				h.List(ef.Controls, ListFormControls),
+			),
+			h.Div(
+				h.Class("d-flex", "gap-2", "justify-content-center", "py-5"),
+				h.List(ef.Buttons, ListFormButtons),
 			),
 		),
 	)

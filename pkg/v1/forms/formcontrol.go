@@ -41,3 +41,12 @@ func ListFormControls(fc FormControl, index int) *h.Element {
 		updatedcntrl.ToHTML(),
 	)
 }
+
+func ListFormButtons(btn controls.Button, index int) *h.Element {
+	//
+	classes := btn.GetClasses()
+	classes = append(classes, "d-inline-flex")
+	classes = append(classes, "align-items-center")
+	updatedcntrl := btn.SetClassses(classes)
+	return updatedcntrl.ToHTML()
+}
