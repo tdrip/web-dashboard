@@ -14,7 +14,6 @@ import (
 	navigation "github.com/tdrip/web-dashboard/pkg/v1/navigation"
 	pages "github.com/tdrip/web-dashboard/pkg/v1/pages"
 	render "github.com/tdrip/web-dashboard/pkg/v1/render"
-	"github.com/tdrip/web-dashboard/pkg/v1/tables"
 )
 
 func main() {
@@ -49,28 +48,55 @@ func main() {
 	pg.GetNavMenu = navigation.GetNavigation
 	pg.GetBodyHeader = pg.SimpleNav
 	pg.NavMenuItems = []navigation.NavMenuItem{
-		navigation.NewNavButton("show table", "/showtable", "#mainpage"),
+		navigation.NewNavButton("show grid form", "/gridform", "#mainpage"),
 	}
 
 	//index
 	router.Get("/", func(writer http.ResponseWriter, request *http.Request) {
 		render.RenderPage(request, writer, pg.GetPage)
 	})
-	sr := SimpleRender{}
-	tableview := func(ctx *h.RequestContext) *h.Partial {
-		return tables.RenderTable(sr)
-	}
 
-	router.Get("/showtable", func(writer http.ResponseWriter, request *http.Request) {
-		render.RenderPartial(request, writer, tableview)
+	router.Get("/gridform", func(writer http.ResponseWriter, request *http.Request) {
+		render.RenderIPartial(request, writer, NewGF())
 	})
 
-	ef := NewSillyForm()
 	router.Get("/edititem/{id}", func(writer http.ResponseWriter, request *http.Request) {
-		render.RenderIPartial(request, writer, ef)
+		render.RenderIPartial(request, writer, NewSillyForm())
 	})
 
 	http.ListenAndServe(":3000", router)
+}
+
+func NewGF() forms.GridForm {
+	gf := forms.GridForm{}
+	gf.Title = "A grid form"
+	gf.HasUpdateTime = true
+	gf.GetTable = getTable
+
+	newbtn := controls.Button{
+		Text: "New",
+		Classes: []string{
+			bootstrap.Button,
+			bootstrap.ButtonSuccess,
+		},
+		GetUrl: "/getmodal/",
+		Attributes: []*h.AttributeR{
+			{
+				Name:  hx.TargetAttr,
+				Value: "#topmodal",
+			},
+			{
+				Name:  "data-bs-toggle",
+				Value: "modal",
+			},
+			{
+				Name:  "data-bs-target",
+				Value: "#topmodal",
+			},
+		},
+	}
+	gf.NewButton = &newbtn
+	return gf
 }
 
 type SillyForm struct {
@@ -169,50 +195,15 @@ func GetFakeFormData(c *h.RequestContext, ip render.IPartial) render.IPartial {
 	return sf
 }
 
-type SimpleRender struct {
-	tables.TableRender
-}
-
 func getTable() controls.Table {
 	tbl := controls.Table{}
 
 	tbl.Classes = controls.SetClassses(tbl, []string{"table-responsive", "small", bootstrap.TableClass, "table-striped", "table-sm", "delete-row-example"})
-	tbl.TableHeaders = controls.GetSimpleTableHeaders([]string{"col1", "col2", "actions"})
+	tbl.TableHeaders = controls.GetSimpleTableHeaders([]string{"unused?", "col1", "col2", "actions"})
 	tbl.TableBody = controls.TableBody{
 		GetTableRows: GetTableRows,
 	}
 	return tbl
-}
-
-func (sr SimpleRender) GetTable() controls.Table {
-	return getTable()
-}
-
-func (sr SimpleRender) HasTitle() bool {
-	return true
-}
-func (sr SimpleRender) GetTitle() string {
-	return "Table title"
-}
-
-func (sr SimpleRender) HasNewButton() bool {
-	return true
-}
-
-func (sr SimpleRender) HasUpdateTime() bool {
-	return true
-}
-
-func (sr SimpleRender) GetModalCreateUrl() string {
-	return "Table title"
-}
-
-func (sr SimpleRender) GetModalCreateId() string {
-	return "Table title"
-}
-
-func (sr SimpleRender) GetModalEditUrl(string) string {
-	return "Table title"
 }
 
 func GetTableRows() *h.Element {
@@ -225,6 +216,18 @@ func GetTableRows() *h.Element {
 }
 
 func MakeCells(item string, index int) *h.Element {
+
+	id := fmt.Sprintf("testid%d", index)
+
+	cbox := controls.Checkbox{
+		Text: id + " displayname",
+		Attributes: []*h.AttributeR{
+			{
+				Name:  "id",
+				Value: id + "-chk",
+			},
+		},
+	}
 	buttons := []controls.Button{
 		{
 
@@ -236,14 +239,14 @@ func MakeCells(item string, index int) *h.Element {
 			Attributes: []*h.AttributeR{
 				{
 					Name:  "id",
-					Value: fmt.Sprintf("testid%d", index),
+					Value: id,
 				},
 				{
 					Name:  hx.TargetAttr,
 					Value: "#mainpage",
 				},
 			},
-			GetUrl: fmt.Sprintf(strings.Replace("/edititem/{id}", "{id}", fmt.Sprintf("testid%d", index), -1)),
+			GetUrl: strings.Replace("/edititem/{id}", "{id}", id, -1),
 		},
 		{
 			Text: "goo1",
@@ -254,12 +257,9 @@ func MakeCells(item string, index int) *h.Element {
 		},
 	}
 	return h.Tr(
+		controls.GetCheckBoxCell(cbox),
 		controls.GetTextCell(item+" col1"),
 		controls.GetTextCell(item+" col2"),
 		controls.GetButtonCell(buttons),
 	)
-}
-
-func getCells(item string, index int) *h.Element {
-	return controls.GetTextCell(item)
 }

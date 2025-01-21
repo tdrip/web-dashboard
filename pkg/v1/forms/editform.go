@@ -19,28 +19,28 @@ type EditForm struct {
 	Title       string
 }
 
-func (ef EditForm) DataFromContext(ctx *h.RequestContext) render.IPartial {
-	if ef.GetFormData == nil {
-		return ef
+func (ctrl EditForm) DataFromContext(ctx *h.RequestContext) render.IPartial {
+	if ctrl.GetFormData == nil {
+		return ctrl
 	}
-	return ef.GetFormData(ctx, ef)
+	return ctrl.GetFormData(ctx, ctrl)
 }
 
-func (ef EditForm) Render() *h.Partial {
+func (ctrl EditForm) Render() *h.Partial {
 	return h.NewPartial(
 		h.Div(
 			h.Form(
-				h.Class(ef.Classes...),
-				h.AttributeList(ef.Attributes...),
-				ef.checkEFHasTitle(),
+				h.Class(ctrl.Classes...),
+				h.AttributeList(ctrl.Attributes...),
+				ctrl.checkEFHasTitle(),
 				h.Div(
-					h.List(ef.Controls, ListFormControls),
+					h.List(ctrl.Controls, ListFormControls),
 				),
 				h.Div(
 					h.Class(bootstrap.Row),
 					h.Div(
 						h.Class("d-flex", "gap-2", "justify-content-center", "py-5"),
-						h.List(ef.Buttons, ListFormButtons),
+						h.List(ctrl.Buttons, ListFormButtons),
 					),
 				),
 			),
@@ -48,8 +48,8 @@ func (ef EditForm) Render() *h.Partial {
 	)
 }
 
-func (ef EditForm) checkEFHasTitle() *h.Element {
-	if len(ef.Title) == 0 {
+func (ctrl EditForm) checkEFHasTitle() *h.Element {
+	if len(ctrl.Title) == 0 {
 		return h.Empty()
 	}
 	return h.Div(
@@ -57,7 +57,7 @@ func (ef EditForm) checkEFHasTitle() *h.Element {
 		h.Div(
 			h.Class(bootstrap.Col),
 			h.H2(
-				h.Text(ef.Title),
+				h.Text(ctrl.Title),
 			),
 		),
 	)

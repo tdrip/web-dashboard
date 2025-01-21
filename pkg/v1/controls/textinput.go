@@ -12,33 +12,33 @@ type TextInput struct {
 	ReadOnly   bool
 }
 
-func (ti TextInput) GetClasses() []string {
-	return ti.Classes
+func (ctrl TextInput) GetClasses() []string {
+	return ctrl.Classes
 }
 
-func (ti TextInput) SetClassses(classes []string) BaseControl {
-	ti.Classes = SetClassses(ti, classes)
-	return ti
+func (ctrl TextInput) SetClassses(classes []string) BaseControl {
+	ctrl.Classes = SetClassses(ctrl, classes)
+	return ctrl
 }
 
-func (ti TextInput) GetAtts() []*h.AttributeR {
-	return ti.Attributes
+func (ctrl TextInput) GetAtts() []*h.AttributeR {
+	return ctrl.Attributes
 }
 
-func (ti TextInput) SetAtts(atts []*h.AttributeR) BaseControl {
-	ti.Attributes = SetAtts(ti, atts)
-	return ti
+func (ctrl TextInput) SetAtts(atts []*h.AttributeR) BaseControl {
+	ctrl.Attributes = SetAtts(ctrl, atts)
+	return ctrl
 }
 
-func (ti TextInput) ToHTML() *h.Element {
+func (ctrl TextInput) ToHTML() *h.Element {
 
-	if ti.ReadOnly {
-		ti.Attributes = SetAtt(ti, "readonly", "true")
+	if ctrl.ReadOnly {
+		ctrl.Attributes = SetAtt(ctrl, "readonly", "true")
 	}
 
 	return h.TextInput(
 		h.Class(bootstrap.FormControl),
-		h.AttributeList(ti.Attributes...),
+		h.AttributeList(ctrl.Attributes...),
 	)
 
 }

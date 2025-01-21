@@ -2,6 +2,12 @@ package controls
 
 import "github.com/maddalax/htmgo/framework/h"
 
+func GetCheckBoxCell(item Checkbox) *h.Element {
+	return h.Td(
+		item.ToHTML(),
+	)
+}
+
 func GetTextCell(item string) *h.Element {
 	return h.Td(
 		h.Text(item),
