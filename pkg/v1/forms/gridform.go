@@ -15,10 +15,6 @@ type GetTable func() controls.Table
 
 type GridForm struct {
 	render.IPartial
-	Controls      []FormControl
-	Buttons       []controls.Button
-	Attributes    []*h.AttributeR
-	Classes       []string
 	GetFormData   GetFormData
 	Title         string
 	NewButton     *controls.Button
