@@ -32,7 +32,7 @@ func (ctrl EditForm) Render() *h.Partial {
 			h.Form(
 				h.Class(ctrl.Classes...),
 				h.AttributeList(ctrl.Attributes...),
-				ctrl.checkEFHasTitle(),
+				ctrl.checkHasTitle(),
 				h.Div(
 					h.List(ctrl.Controls, ListFormControls),
 				),
@@ -48,7 +48,7 @@ func (ctrl EditForm) Render() *h.Partial {
 	)
 }
 
-func (ctrl EditForm) checkEFHasTitle() *h.Element {
+func (ctrl EditForm) checkHasTitle() *h.Element {
 	if len(ctrl.Title) == 0 {
 		return h.Empty()
 	}
