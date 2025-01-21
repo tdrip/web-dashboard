@@ -16,8 +16,8 @@ func (ctrl Table) GetClasses() []string {
 	return ctrl.Classes
 }
 
-func (ctrl Table) SetClassses(classes []string) BaseControl {
-	ctrl.Classes = SetClassses(ctrl, classes)
+func (ctrl Table) SetClasses(classes []string) BaseControl {
+	ctrl.Classes = SetClasses(ctrl, classes)
 	return ctrl
 }
 

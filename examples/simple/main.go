@@ -198,7 +198,7 @@ func GetFakeFormData(c *h.RequestContext, ip render.IPartial) render.IPartial {
 func getTable() controls.Table {
 	tbl := controls.Table{}
 
-	tbl.Classes = controls.SetClassses(tbl, []string{"table-responsive", "small", bootstrap.TableClass, "table-striped", "table-sm", "delete-row-example"})
+	tbl.Classes = controls.SetClasses(tbl, []string{"table-responsive", "small", bootstrap.TableClass, "table-striped", "table-sm", "delete-row-example"})
 	tbl.TableHeaders = controls.GetSimpleTableHeaders([]string{"unused?", "col1", "col2", "actions"})
 	tbl.TableBody = controls.TableBody{
 		GetTableRows: GetTableRows,

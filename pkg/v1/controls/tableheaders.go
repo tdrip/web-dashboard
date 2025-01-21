@@ -41,8 +41,8 @@ func (ctrl TableHeaders) GetClasses() []string {
 	return ctrl.Classes
 }
 
-func (ctrl TableHeaders) SetClassses(classes []string) BaseControl {
-	ctrl.Classes = SetClassses(ctrl, classes)
+func (ctrl TableHeaders) SetClasses(classes []string) BaseControl {
+	ctrl.Classes = SetClasses(ctrl, classes)
 	return ctrl
 }
 

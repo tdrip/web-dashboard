@@ -25,7 +25,7 @@ func ListFormControls(fc FormControl, index int) *h.Element {
 	// make the under lying control look good
 	classes := updatedcntrl.GetClasses()
 	classes = append(classes, bootstrap.FormControl)
-	updatedcntrl = updatedcntrl.SetClassses(classes)
+	updatedcntrl = updatedcntrl.SetClasses(classes)
 	fc.Cntrl = updatedcntrl
 
 	return h.Div(
@@ -40,6 +40,6 @@ func ListFormButtons(btn controls.Button, index int) *h.Element {
 	classes := btn.GetClasses()
 	classes = append(classes, "d-inline-flex")
 	classes = append(classes, "align-items-center")
-	updatedcntrl := btn.SetClassses(classes)
+	updatedcntrl := btn.SetClasses(classes)
 	return updatedcntrl.ToHTML()
 }

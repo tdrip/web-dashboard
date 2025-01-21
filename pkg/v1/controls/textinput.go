@@ -16,8 +16,8 @@ func (ctrl TextInput) GetClasses() []string {
 	return ctrl.Classes
 }
 
-func (ctrl TextInput) SetClassses(classes []string) BaseControl {
-	ctrl.Classes = SetClassses(ctrl, classes)
+func (ctrl TextInput) SetClasses(classes []string) BaseControl {
+	ctrl.Classes = SetClasses(ctrl, classes)
 	return ctrl
 }
 

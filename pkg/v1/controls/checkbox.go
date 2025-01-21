@@ -15,8 +15,8 @@ func (ctrl Checkbox) GetClasses() []string {
 	return ctrl.Classes
 }
 
-func (ctrl Checkbox) SetClassses(classes []string) BaseControl {
-	ctrl.Classes = SetClassses(ctrl, classes)
+func (ctrl Checkbox) SetClasses(classes []string) BaseControl {
+	ctrl.Classes = SetClasses(ctrl, classes)
 	return ctrl
 }
 

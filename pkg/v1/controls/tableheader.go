@@ -23,8 +23,8 @@ func (ctrl TableHeader) GetClasses() []string {
 	return ctrl.Classes
 }
 
-func (ctrl TableHeader) SetClassses(classes []string) BaseControl {
-	ctrl.Classes = SetClassses(ctrl, classes)
+func (ctrl TableHeader) SetClasses(classes []string) BaseControl {
+	ctrl.Classes = SetClasses(ctrl, classes)
 	return ctrl
 }
 
