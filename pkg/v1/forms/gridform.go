@@ -1,6 +1,7 @@
 package forms
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/maddalax/htmgo/framework/h"
@@ -36,7 +37,6 @@ func (ctrl GridForm) Render() *h.Partial {
 			h.Div(
 				h.Class("d-flex", "justify-content-between", "flex-wrap", "flex-md-nowrap", "align-items-center", "pt-3", "pb-2", "mb-3", "border-bottom"),
 				checkHasTitle(ctrl),
-				checkUpdateTime(ctrl),
 				checkGetNew(ctrl),
 			),
 			h.Div(
@@ -51,22 +51,24 @@ func (ctrl GridForm) Render() *h.Partial {
 
 }
 
-func checkUpdateTime(ctrl GridForm) *h.Element {
-	if !ctrl.HasUpdateTime {
-		return h.Empty()
-	}
-	return h.Div(
-		h.Class(bootstrap.Row),
-		h.Div(
-			h.Class(bootstrap.Col),
-			h.Pf("Fetched: %s", time.Now().Format(layout)),
-		),
-	)
-}
-
 func checkHasTitle(ctrl GridForm) *h.Element {
 	if len(ctrl.Title) == 0 {
 		return h.Empty()
+	}
+
+	if ctrl.HasUpdateTime {
+
+		return h.Div(
+			h.Class(bootstrap.Row),
+			h.Div(
+				h.Class(bootstrap.Col),
+				h.H1F(ctrl.Title),
+				h.Span(
+					h.Class("badge", "text-bg-secondary"),
+					h.Text(fmt.Sprintf("Fetched: %s", time.Now().Format(layout))),
+				),
+			),
+		)
 	}
 	return h.Div(
 		h.Class(bootstrap.Row),
@@ -75,6 +77,7 @@ func checkHasTitle(ctrl GridForm) *h.Element {
 			h.H1F(ctrl.Title),
 		),
 	)
+
 }
 
 func checkGetNew(ctrl GridForm) *h.Element {
