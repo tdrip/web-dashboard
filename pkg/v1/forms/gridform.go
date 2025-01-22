@@ -35,7 +35,7 @@ func (ctrl GridForm) Render() *h.Partial {
 	return h.NewPartial(
 		h.Div(
 			h.Div(
-				h.Class("d-flex", "justify-content-between", "flex-wrap", "flex-md-nowrap", "align-items-center", "pt-3", "pb-2", "mb-3", "border-bottom"),
+				h.Class("row", "d-flex", "justify-content-between", "flex-wrap", "flex-md-nowrap", "align-items-center", "pt-3", "pb-2", "mb-3", "border-bottom"),
 				checkHasTitle(ctrl),
 				checkGetNew(ctrl),
 			),
@@ -59,23 +59,18 @@ func checkHasTitle(ctrl GridForm) *h.Element {
 	if ctrl.HasUpdateTime {
 
 		return h.Div(
-			h.Class(bootstrap.Row),
-			h.Div(
-				h.Class(bootstrap.Col),
-				h.H1F(ctrl.Title),
-				h.Span(
-					h.Class("badge", "text-bg-secondary"),
-					h.Text(fmt.Sprintf("Fetched: %s", time.Now().Format(layout))),
-				),
-			),
-		)
-	}
-	return h.Div(
-		h.Class(bootstrap.Row),
-		h.Div(
 			h.Class(bootstrap.Col),
 			h.H1F(ctrl.Title),
-		),
+			h.Span(
+				h.Class("badge", "text-bg-secondary"),
+				h.Text(fmt.Sprintf("Fetched: %s", time.Now().Format(layout))),
+			),
+		)
+
+	}
+	return h.Div(
+		h.Class(bootstrap.Col),
+		h.H1F(ctrl.Title),
 	)
 
 }
@@ -86,10 +81,7 @@ func checkGetNew(ctrl GridForm) *h.Element {
 	}
 
 	return h.Div(
-		h.Class(bootstrap.Row),
-		h.Div(
-			h.Class(bootstrap.Col, "d-grid", "gap-2", "d-md-flex", "justify-content-md-end"),
-			ctrl.NewButton.ToHTML(),
-		),
+		h.Class(bootstrap.Col, "d-grid", "gap-2", "d-md-flex", "justify-content-md-end"),
+		ctrl.NewButton.ToHTML(),
 	)
 }
