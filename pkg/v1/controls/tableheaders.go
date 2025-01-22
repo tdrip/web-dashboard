@@ -34,7 +34,6 @@ func (ctrl TableHeaders) ToHTML() *h.Element {
 			h.List(ctrl.Headers, ListHeaderitems),
 		),
 	)
-
 }
 
 func (ctrl TableHeaders) GetClasses() []string {

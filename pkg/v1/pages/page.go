@@ -67,7 +67,14 @@ func (pg Page) checkPage() *h.Element {
 			h.Div(
 				h.Class(bootstrap.Row),
 				pg.checkGetNavMenu(),
-				pg.checkGetBodyMain(),
+				h.Main(
+					h.Class(bootstrap.ColMD9, "ms-sm-atuo", bootstrap.ColLG10, "px-md-4"),
+					pg.GetPageTitle(),
+					//h.Div(
+					h.Attribute("id", pg.Id),
+					pg.checkGetBodyMain(),
+					//),
+				),
 			),
 		),
 		h.List(pg.BodyScripts, scriptItems),
@@ -138,11 +145,10 @@ func scriptItems(item string, index int) *h.Element {
 	return h.Script(item)
 }
 
-func (pg Page) GetEmptyMain() *h.Element {
-	return h.Main(
-		h.Attribute("id", pg.Id),
-		h.Class(bootstrap.ColMD9, "ms-sm-atuo", bootstrap.ColLG10, "px-md-4"),
-		h.H2F(pg.Title),
+func (pg Page) GetPageTitle() *h.Element {
+	return h.Div(
+		h.Class("d-flex", "justify-content-between", "flex-wrap", "flex-md-nowrap", "align-items-center", "pt-3", "pb-2", "mb-3", "border-bottom"),
+		h.H1F(pg.Title),
 	)
 }
 

@@ -13,7 +13,15 @@ const (
 	NavHrefBlank
 	NavButton
 	NavHref
+	NavHRule
 )
+
+func NewNavHRule() NavMenuItem {
+	nmi := NavMenuItem{
+		Type: NavHRule,
+	}
+	return nmi
+}
 
 type NavMenuItem struct {
 	Type   NavType
@@ -95,21 +103,9 @@ func renderListItems(item NavMenuItem, index int) *h.Element {
 		return h.Li(
 			h.Class("nav-item"),
 			h.A(
-				h.Class("nav-link"),
+				h.Class("nav-link", "d-flex", "align-items-center", "gap-2"),
 				h.Attribute("href", item.HREF),
 				h.Attribute("target", "_blank"),
-				h.Text(item.Title),
-			),
-		)
-	case NavButton:
-		return h.Li(
-			h.Class("nav-item"),
-			h.Button(
-				h.Class("nav-link", "active"),
-				h.Attribute("aria-current", "page"),
-				h.HxTarget(item.Target), //"#page-data"),
-				h.Attribute(hx.GetAttr, item.HREF),
-				h.Attribute(hx.SwapAttr, hx.SwapTypeInnerHtml),
 				h.Text(item.Title),
 			),
 		)
@@ -117,10 +113,27 @@ func renderListItems(item NavMenuItem, index int) *h.Element {
 		return h.Li(
 			h.Class("nav-item"),
 			h.A(
-				h.Class("nav-link"),
+				h.Class("nav-link", "d-flex", "align-items-center", "gap-2"),
 				h.Attribute("href", item.HREF),
 				h.Text(item.Title),
 			),
+		)
+	case NavButton:
+		return h.Li(
+			h.Class("nav-item"),
+			h.Button(
+				h.Class("nav-link", "active", "d-flex", "align-items-center", "gap-2"),
+				h.Attribute("aria-current", "page"),
+				h.HxTarget(item.Target), //"#page-data"),
+				h.Attribute(hx.GetAttr, item.HREF),
+				h.Attribute(hx.SwapAttr, hx.SwapTypeInnerHtml),
+				h.Text(item.Title),
+			),
+		)
+
+	case NavHRule:
+		return h.Hr(
+			h.Class("my-3"),
 		)
 	}
 	return h.Li(h.Text(item.Title))

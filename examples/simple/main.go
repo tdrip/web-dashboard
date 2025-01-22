@@ -27,7 +27,7 @@ func main() {
 	pg.Id = "mainpage"
 	pg.HasThemeSwicther = true
 	pg.HeaderRawItem = bootstrap.DashBoardStyle
-	pg.GetBodyMain = pg.GetEmptyMain
+	//pg.GetBodyMain = pg.GetEmptyMain
 	pg.HeaderScripts = []string{
 		"/public/color-modes.js",
 	}
@@ -49,6 +49,7 @@ func main() {
 	pg.GetBodyHeader = pg.SimpleNav
 	pg.NavMenuItems = []navigation.NavMenuItem{
 		navigation.NewNavButton("show grid form", "/gridform", "#mainpage"),
+		navigation.NewNavHRule(),
 	}
 
 	//index
@@ -219,14 +220,10 @@ func MakeCells(item string, index int) *h.Element {
 
 	id := fmt.Sprintf("testid%d", index)
 
-	cbox := controls.Checkbox{
-		Text: id + " displayname",
-		Attributes: []*h.AttributeR{
-			{
-				Name:  "id",
-				Value: id + "-chk",
-			},
-		},
+	cbox := controls.NewCheckedCheckbox(id+" displayname", id+"-chk", id+"-chk-name")
+
+	if index%2 == 0 {
+		cbox = controls.NewUnCheckedCheckbox(id+" displayname", id+"-chk", id+"-chk-name")
 	}
 	buttons := []controls.Button{
 		{

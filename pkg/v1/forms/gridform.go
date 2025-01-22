@@ -33,9 +33,12 @@ func (ctrl GridForm) Render() *h.Partial {
 	tbl := ctrl.GetTable()
 	return h.NewPartial(
 		h.Div(
-			checkHasTitle(ctrl),
-			checkUpdateTime(ctrl),
-			checkGetNew(ctrl),
+			h.Div(
+				h.Class("d-flex", "justify-content-between", "flex-wrap", "flex-md-nowrap", "align-items-center", "pt-3", "pb-2", "mb-3", "border-bottom"),
+				checkHasTitle(ctrl),
+				checkUpdateTime(ctrl),
+				checkGetNew(ctrl),
+			),
 			h.Div(
 				h.Class(bootstrap.Row),
 				h.Div(
@@ -69,9 +72,7 @@ func checkHasTitle(ctrl GridForm) *h.Element {
 		h.Class(bootstrap.Row),
 		h.Div(
 			h.Class(bootstrap.Col),
-			h.H2(
-				h.Text(ctrl.Title),
-			),
+			h.H1F(ctrl.Title),
 		),
 	)
 }

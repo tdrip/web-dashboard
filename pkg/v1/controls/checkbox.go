@@ -32,7 +32,6 @@ func (ctrl Checkbox) SetAtts(atts []*h.AttributeR) BaseControl {
 func (ctrl Checkbox) ToHTML() *h.Element {
 	id := ""
 	for _, att := range ctrl.Attributes {
-
 		if att.Name == "id" {
 			id = att.Value
 			break
@@ -52,6 +51,44 @@ func (ctrl Checkbox) ToHTML() *h.Element {
 		),
 	)
 
+}
+
+func NewCheckedCheckbox(text string, id string, formname string) Checkbox {
+	cbox := Checkbox{
+		Text: text,
+		Attributes: []*h.AttributeR{
+			{
+				Name:  "id",
+				Value: id,
+			},
+			{
+				Name:  "checked",
+				Value: "",
+			},
+			{
+				Name:  "name",
+				Value: formname,
+			},
+		},
+	}
+	return cbox
+}
+
+func NewUnCheckedCheckbox(text string, id string, formname string) Checkbox {
+	cbox := Checkbox{
+		Text: text,
+		Attributes: []*h.AttributeR{
+			{
+				Name:  "id",
+				Value: id,
+			},
+			{
+				Name:  "name",
+				Value: formname,
+			},
+		},
+	}
+	return cbox
 }
 
 /*
