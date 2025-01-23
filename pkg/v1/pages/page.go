@@ -3,10 +3,9 @@ package pages
 import (
 	"github.com/maddalax/htmgo/framework/h"
 	bootstrap "github.com/tdrip/web-dashboard/pkg/v1/bootstrap"
-	navigation "github.com/tdrip/web-dashboard/pkg/v1/navigation"
+	"github.com/tdrip/web-dashboard/pkg/v1/controls"
 )
 
-type GetNavMenu func(navitems []navigation.NavMenuItem) *h.Element
 type GetModal func() *h.Element
 type GetBodyHeader func() *h.Element
 type GetBodyMain func() *h.Element
@@ -17,7 +16,7 @@ type Link struct {
 }
 
 type Page struct {
-	NavMenuItems     []navigation.NavMenuItem
+	SidebarMenu      controls.SidebarMenu
 	Header           string
 	Title            string
 	HeaderScripts    []string
@@ -25,7 +24,6 @@ type Page struct {
 	HeaderRawItem    string
 	BodyRawItem      string
 	BodyScripts      []string
-	GetNavMenu       GetNavMenu
 	GetModal         GetModal
 	HasModal         bool
 	ModalID          string
@@ -66,7 +64,7 @@ func (pg Page) checkPage() *h.Element {
 			h.Class(bootstrap.ContainerFluid),
 			h.Div(
 				h.Class(bootstrap.Row),
-				pg.checkGetNavMenu(),
+				pg.checkGetSidebarMenu(),
 				h.Main(
 					h.Class(bootstrap.ColMD9, "ms-sm-atuo", bootstrap.ColLG10, "px-md-4"),
 					pg.GetPageTitle(),
@@ -126,11 +124,11 @@ func (pg Page) GetEmptyModal() *h.Element {
 	)
 }
 
-func (pg Page) checkGetNavMenu() *h.Element {
-	if pg.GetNavMenu == nil {
+func (pg Page) checkGetSidebarMenu() *h.Element {
+	if len(pg.SidebarMenu.MenuItems) == 0 {
 		return h.Empty()
 	}
-	return pg.GetNavMenu(pg.NavMenuItems)
+	return pg.SidebarMenu.ToHTML()
 }
 
 func getLinks(links []Link) *h.Element {

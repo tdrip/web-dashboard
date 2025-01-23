@@ -11,7 +11,6 @@ import (
 	"github.com/tdrip/web-dashboard/pkg/v1/bootstrap"
 	"github.com/tdrip/web-dashboard/pkg/v1/controls"
 	"github.com/tdrip/web-dashboard/pkg/v1/forms"
-	navigation "github.com/tdrip/web-dashboard/pkg/v1/navigation"
 	pages "github.com/tdrip/web-dashboard/pkg/v1/pages"
 	render "github.com/tdrip/web-dashboard/pkg/v1/render"
 )
@@ -45,11 +44,12 @@ func main() {
 		"/public/htmgo.js",
 	}
 
-	pg.GetNavMenu = navigation.GetNavigation
 	pg.GetBodyHeader = pg.SimpleNav
-	pg.NavMenuItems = []navigation.NavMenuItem{
-		navigation.NewNavButton("show grid form", "/gridform", "#mainpage"),
-		navigation.NewNavHRule(),
+	pg.SidebarMenu = controls.SidebarMenu{
+		MenuItems: []controls.NavMenuItem{
+			controls.NewNavButton("show grid form", "/gridform", "#mainpage"),
+			controls.NewNavHRule(),
+		},
 	}
 
 	//index

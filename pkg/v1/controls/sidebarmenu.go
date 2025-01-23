@@ -1,4 +1,4 @@
-package navigation
+package controls
 
 import (
 	"github.com/maddalax/htmgo/framework/h"
@@ -6,68 +6,32 @@ import (
 	"github.com/tdrip/web-dashboard/pkg/v1/bootstrap"
 )
 
-type NavType int
-
-const (
-	Heading NavType = iota
-	NavHrefBlank
-	NavButton
-	NavHref
-	NavHRule
-)
-
-func NewNavHRule() NavMenuItem {
-	nmi := NavMenuItem{
-		Type: NavHRule,
-	}
-	return nmi
+type SidebarMenu struct {
+	BaseControl
+	Attributes []*h.AttributeR
+	Classes    []string
+	MenuItems  []NavMenuItem
 }
 
-type NavMenuItem struct {
-	Type   NavType
-	Title  string
-	HREF   string
-	Target string
+func (ctrl SidebarMenu) GetClasses() []string {
+	return ctrl.Classes
 }
 
-func NewNavHref(title string, href string) NavMenuItem {
-	nmi := NavMenuItem{
-		Type:  NavHref,
-		Title: title,
-		HREF:  href,
-	}
-	return nmi
+func (ctrl SidebarMenu) SetClasses(classes []string) BaseControl {
+	ctrl.Classes = SetClasses(ctrl, classes)
+	return ctrl
 }
 
-func NewNavButton(title string, href string, target string) NavMenuItem {
-	nmi := NavMenuItem{
-		Type:   NavButton,
-		Title:  title,
-		HREF:   href,
-		Target: target,
-	}
-	return nmi
+func (ctrl SidebarMenu) GetAtts() []*h.AttributeR {
+	return ctrl.Attributes
 }
 
-func NewNavHrefBlank(title string, href string) NavMenuItem {
-	nmi := NavMenuItem{
-		Type:  NavHrefBlank,
-		Title: title,
-		HREF:  href,
-	}
-	return nmi
+func (ctrl SidebarMenu) SetAtts(atts []*h.AttributeR) BaseControl {
+	ctrl.Attributes = SetAtts(ctrl, atts)
+	return ctrl
 }
 
-func NewHeading(title string) NavMenuItem {
-	nmi := NavMenuItem{
-		Type:  Heading,
-		Title: title,
-	}
-
-	return nmi
-}
-
-func GetNavigation(navitems []NavMenuItem) *h.Element {
+func (ctrl SidebarMenu) ToHTML() *h.Element {
 	return h.Div(
 		//h.Attribute("id", "sidebarMenu"),
 		h.Class("sidebar", "border", "border-right", bootstrap.ColMD3, bootstrap.ColLG2, "p-0", "bg-body-tertiary"),
@@ -78,7 +42,7 @@ func GetNavigation(navitems []NavMenuItem) *h.Element {
 			h.Class("offcanvas-md", "offcanvas-end", "bg-body-tertiary"),
 			h.Div(
 				h.Class("offcanvas-body", "d-md-flex", bootstrap.FlexColumn, "p-0", "pt-lg-3", "overflow-y-auto"),
-				getNavList(navitems),
+				getNavList(ctrl.MenuItems),
 			),
 		),
 	)
@@ -92,7 +56,6 @@ func getNavList(navitems []NavMenuItem) *h.Element {
 }
 
 func renderListItems(item NavMenuItem, index int) *h.Element {
-
 	switch item.Type {
 	case Heading:
 		return h.H6(
