@@ -46,5 +46,21 @@ func (ctrl Modal) ToHTML() *h.Element {
 			),
 		),
 	)
+}
 
+func GetEmptyModal(ModalID string) *h.Element {
+	return h.Div(
+		h.Attribute("id", ModalID),
+		h.Class(bootstrap.Modal, bootstrap.ModalBlur, "fade"),
+		h.Attribute("style", "display:none"),
+		h.AriaHidden(false),
+		h.TabIndex(-11),
+		h.Div(
+			h.Class(bootstrap.ModalDialog, bootstrap.ModalLG, bootstrap.ModalDialogCentered),
+			h.Attribute("role", "document"),
+			h.Div(
+				h.Class(bootstrap.ModalContent),
+			),
+		),
+	)
 }
