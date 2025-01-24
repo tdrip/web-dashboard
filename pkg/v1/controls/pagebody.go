@@ -5,7 +5,7 @@ import (
 	bootstrap "github.com/tdrip/web-dashboard/pkg/v1/bootstrap"
 )
 
-type GetModal func() *h.Element
+type GetModal func(id string) *h.Element
 type GetBodyHeader func() *h.Element
 type GetBodyMain func() *h.Element
 
