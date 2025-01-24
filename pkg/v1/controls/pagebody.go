@@ -23,6 +23,7 @@ type PageBody struct {
 	GetBodyMain      GetBodyMain
 	HasThemeSwicther bool
 	Id               string
+	ModalId          string
 }
 
 func (ctrl PageBody) GetClasses() []string {
@@ -95,7 +96,7 @@ func (ctrl PageBody) checkGetModals() *h.Element {
 	if !ctrl.HasModal {
 		return h.Empty()
 	}
-	return ctrl.GetModal()
+	return ctrl.GetModal(ctrl.ModalId)
 }
 
 func (ctrl PageBody) checkGetSidebarMenu() *h.Element {
