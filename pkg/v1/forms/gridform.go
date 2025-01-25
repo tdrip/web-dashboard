@@ -18,9 +18,12 @@ type GridForm struct {
 	render.IPartial
 	GetFormData   GetFormData
 	Title         string
-	NewButton     *controls.Button
+	Buttons       []controls.Button
 	GetTable      GetTable
 	HasUpdateTime bool
+	IsForm        bool
+	Attributes    []*h.AttributeR
+	Classes       []string
 }
 
 func (ctrl GridForm) DataFromContext(ctx *h.RequestContext) render.IPartial {
@@ -32,8 +35,33 @@ func (ctrl GridForm) DataFromContext(ctx *h.RequestContext) render.IPartial {
 
 func (ctrl GridForm) Render() *h.Partial {
 	tbl := ctrl.GetTable()
+
+	if ctrl.IsForm {
+		return h.NewPartial(
+			h.Div(
+				h.Form(
+					h.Class(ctrl.Classes...),
+					h.AttributeList(ctrl.Attributes...),
+					h.Div(
+						h.Class("row", "d-flex", "justify-content-between", "flex-wrap", "flex-md-nowrap", "align-items-center", "pt-3", "pb-2", "mb-3", "border-bottom"),
+						checkHasTitle(ctrl),
+						checkGetNew(ctrl),
+					),
+					h.Div(
+						h.Class(bootstrap.Row),
+						h.Div(
+							h.Class(bootstrap.Col),
+							tbl.ToHTML(),
+						),
+					),
+				),
+			),
+		)
+	}
 	return h.NewPartial(
 		h.Div(
+			h.Class(ctrl.Classes...),
+			h.AttributeList(ctrl.Attributes...),
 			h.Div(
 				h.Class("row", "d-flex", "justify-content-between", "flex-wrap", "flex-md-nowrap", "align-items-center", "pt-3", "pb-2", "mb-3", "border-bottom"),
 				checkHasTitle(ctrl),
@@ -57,7 +85,6 @@ func checkHasTitle(ctrl GridForm) *h.Element {
 	}
 
 	if ctrl.HasUpdateTime {
-
 		return h.Div(
 			h.Class(bootstrap.Col),
 			h.H1F(ctrl.Title),
@@ -76,12 +103,25 @@ func checkHasTitle(ctrl GridForm) *h.Element {
 }
 
 func checkGetNew(ctrl GridForm) *h.Element {
-	if ctrl.NewButton == nil {
+	if len(ctrl.Buttons) == 0 {
 		return h.Empty()
+	}
+
+	if len(ctrl.Buttons) == 1 {
+		return h.Div(
+			h.Class(bootstrap.Col, "d-grid", "gap-2", "d-md-flex", "justify-content-md-end"),
+			ctrl.Buttons[0].ToHTML(),
+		)
 	}
 
 	return h.Div(
 		h.Class(bootstrap.Col, "d-grid", "gap-2", "d-md-flex", "justify-content-md-end"),
-		ctrl.NewButton.ToHTML(),
+		h.Div(
+			h.Class("btn-toolbar", "mb-2", "md-md-0"),
+			h.Div(
+				h.Class("btn-group", "me-2"),
+				h.List(ctrl.Buttons, controls.ListButtons),
+			),
+		),
 	)
 }

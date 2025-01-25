@@ -53,7 +53,7 @@ func (ctrl Checkbox) ToHTML() *h.Element {
 
 }
 
-func NewCheckedCheckbox(text string, id string, formname string) Checkbox {
+func NewCheckedCheckbox(text string, id string, formname string, formvalue string) Checkbox {
 	cbox := Checkbox{
 		Text: text,
 		Attributes: []*h.AttributeR{
@@ -69,12 +69,16 @@ func NewCheckedCheckbox(text string, id string, formname string) Checkbox {
 				Name:  "name",
 				Value: formname,
 			},
+			{
+				Name:  "value",
+				Value: formvalue,
+			},
 		},
 	}
 	return cbox
 }
 
-func NewUnCheckedCheckbox(text string, id string, formname string) Checkbox {
+func NewUnCheckedCheckbox(text string, id string, formname string, formvalue string) Checkbox {
 	cbox := Checkbox{
 		Text: text,
 		Attributes: []*h.AttributeR{
@@ -85,6 +89,10 @@ func NewUnCheckedCheckbox(text string, id string, formname string) Checkbox {
 			{
 				Name:  "name",
 				Value: formname,
+			},
+			{
+				Name:  "value",
+				Value: formvalue,
 			},
 		},
 	}

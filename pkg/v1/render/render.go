@@ -31,6 +31,10 @@ func RenderIPartial(req *http.Request, w http.ResponseWriter, ip IPartial) {
 		Request:  req,
 		Response: w,
 	}
-	updated := ip.DataFromContext(&ctx)
-	h.PartialView(w, updated.Render())
+	RenderCTXIPartial(&ctx, ip)
+}
+
+func RenderCTXIPartial(ctx *h.RequestContext, ip IPartial) {
+	updated := ip.DataFromContext(ctx)
+	h.PartialView(ctx.Response, updated.Render())
 }

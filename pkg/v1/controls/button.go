@@ -47,3 +47,7 @@ func (ctrl Button) ToHTML() *h.Element {
 		h.Text(ctrl.Text),
 	)
 }
+
+func ListButtons(ctrl Button, index int) *h.Element {
+	return ctrl.ToHTML()
+}
