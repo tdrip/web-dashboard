@@ -4,20 +4,18 @@ import (
 	"github.com/maddalax/htmgo/framework/h"
 )
 
-type GetModalBody func() *h.Element
-
 type ModalBody struct {
 	BaseControl
-	Attributes   []*h.AttributeR
-	Classes      []string
-	GetModalBody GetModalBody
+	Attributes  []*h.AttributeR
+	Classes     []string
+	DrawControl DrawControl
 }
 
 func (ctrl ModalBody) ToHTML() *h.Element {
 	return h.TBody(
 		h.Class(ctrl.Classes...),
 		h.AttributeList(ctrl.Attributes...),
-		ctrl.GetModalBody(),
+		ctrl.DrawControl(),
 	)
 }
 

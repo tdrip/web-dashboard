@@ -5,13 +5,11 @@ import (
 	"github.com/tdrip/web-dashboard/pkg/v1/bootstrap"
 )
 
-type GetModalFooter func() *h.Element
-
 type ModalFooter struct {
 	BaseControl
-	Attributes     []*h.AttributeR
-	Classes        []string
-	GetModalFooter GetModalFooter
+	Attributes  []*h.AttributeR
+	Classes     []string
+	DrawControl DrawControl
 }
 
 func (ctrl ModalFooter) ToHTML() *h.Element {
@@ -19,7 +17,7 @@ func (ctrl ModalFooter) ToHTML() *h.Element {
 	return h.Div(
 		h.Class(classes...),
 		h.AttributeList(ctrl.Attributes...),
-		ctrl.GetModalFooter(),
+		ctrl.DrawControl(),
 	)
 }
 

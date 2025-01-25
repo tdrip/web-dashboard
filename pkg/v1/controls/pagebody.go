@@ -6,8 +6,6 @@ import (
 )
 
 type GetModal func(id string) *h.Element
-type GetBodyHeader func() *h.Element
-type GetBodyMain func() *h.Element
 
 type PageBody struct {
 	BaseControl
@@ -19,8 +17,8 @@ type PageBody struct {
 	Scripts          []string
 	GetModal         GetModal
 	HasModal         bool
-	GetBodyHeader    GetBodyHeader
-	GetBodyMain      GetBodyMain
+	GetBodyHeader    DrawControl
+	GetBodyMain      DrawControl
 	HasThemeSwicther bool
 	Id               string
 	ModalId          string

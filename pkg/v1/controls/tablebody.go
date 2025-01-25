@@ -4,20 +4,18 @@ import (
 	"github.com/maddalax/htmgo/framework/h"
 )
 
-type GetTableRows func() *h.Element
-
 type TableBody struct {
 	BaseControl
-	Attributes   []*h.AttributeR
-	Classes      []string
-	GetTableRows GetTableRows
+	Attributes  []*h.AttributeR
+	Classes     []string
+	DrawControl DrawControl
 }
 
 func (ctrl TableBody) ToHTML() *h.Element {
 	return h.TBody(
 		h.Class(ctrl.Classes...),
 		h.AttributeList(ctrl.Attributes...),
-		ctrl.GetTableRows(),
+		ctrl.DrawControl(),
 	)
 }
 
