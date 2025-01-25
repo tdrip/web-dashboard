@@ -76,29 +76,30 @@ func NewGF() forms.GridForm {
 	gf.HasUpdateTime = true
 	gf.GetTable = getTable
 
-	newbtn := controls.Button{
-		Text: "New",
-		Classes: []string{
-			bootstrap.Button,
-			bootstrap.ButtonSuccess,
-		},
-		GetUrl: "/getmodal/",
-		Attributes: []*h.AttributeR{
-			{
-				Name:  hx.TargetAttr,
-				Value: "#topmodal",
+	gf.Buttons = []controls.Button{
+		{
+			Text: "New",
+			Classes: []string{
+				bootstrap.Button,
+				bootstrap.ButtonSuccess,
 			},
-			{
-				Name:  "data-bs-toggle",
-				Value: "modal",
-			},
-			{
-				Name:  "data-bs-target",
-				Value: "#topmodal",
+			GetUrl: "/getmodal/",
+			Attributes: []*h.AttributeR{
+				{
+					Name:  hx.TargetAttr,
+					Value: "#topmodal",
+				},
+				{
+					Name:  "data-bs-toggle",
+					Value: "modal",
+				},
+				{
+					Name:  "data-bs-target",
+					Value: "#topmodal",
+				},
 			},
 		},
 	}
-	gf.NewButton = &newbtn
 	return gf
 }
 
@@ -222,10 +223,10 @@ func MakeCells(item string, index int) *h.Element {
 
 	id := fmt.Sprintf("testid%d", index)
 
-	cbox := controls.NewCheckedCheckbox(id+" displayname", id+"-chk", id+"-chk-name")
+	cbox := controls.NewCheckedCheckbox(id+" displayname", id+"-chk", id+"-chk-name", "value1")
 
 	if index%2 == 0 {
-		cbox = controls.NewUnCheckedCheckbox(id+" displayname", id+"-chk", id+"-chk-name")
+		cbox = controls.NewUnCheckedCheckbox(id+" displayname", id+"-chk", id+"-chk-name", "value2")
 	}
 	buttons := []controls.Button{
 		{
