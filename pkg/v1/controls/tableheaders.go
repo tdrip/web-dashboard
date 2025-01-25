@@ -14,7 +14,6 @@ type TableHeaders struct {
 }
 
 func GetSimpleTableHeaders(vals []string) TableHeaders {
-
 	ths := TableHeaders{}
 	headers := []TableHeader{}
 	for _, v := range vals {
@@ -25,7 +24,6 @@ func GetSimpleTableHeaders(vals []string) TableHeaders {
 }
 
 func (ctrl TableHeaders) ToHTML() *h.Element {
-
 	return h.THead(
 		h.Tr(
 			h.Class(ctrl.Classes...),

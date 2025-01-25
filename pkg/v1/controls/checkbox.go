@@ -2,6 +2,7 @@ package controls
 
 import (
 	"github.com/maddalax/htmgo/framework/h"
+	"github.com/tdrip/web-dashboard/pkg/v1/bootstrap"
 )
 
 type Checkbox struct {
@@ -32,7 +33,7 @@ func (ctrl Checkbox) SetAtts(atts []*h.AttributeR) BaseControl {
 func (ctrl Checkbox) ToHTML() *h.Element {
 	id := ""
 	for _, att := range ctrl.Attributes {
-		if att.Name == "id" {
+		if att.Name == bootstrap.AttributeId {
 			id = att.Value
 			break
 		}
@@ -58,19 +59,19 @@ func NewCheckedCheckbox(text string, id string, formname string, formvalue strin
 		Text: text,
 		Attributes: []*h.AttributeR{
 			{
-				Name:  "id",
+				Name:  bootstrap.AttributeId,
 				Value: id,
 			},
 			{
-				Name:  "checked",
+				Name:  bootstrap.AttributeChecked,
 				Value: "",
 			},
 			{
-				Name:  "name",
+				Name:  bootstrap.AttributeName,
 				Value: formname,
 			},
 			{
-				Name:  "value",
+				Name:  bootstrap.AttributeValue,
 				Value: formvalue,
 			},
 		},
@@ -83,27 +84,18 @@ func NewUnCheckedCheckbox(text string, id string, formname string, formvalue str
 		Text: text,
 		Attributes: []*h.AttributeR{
 			{
-				Name:  "id",
+				Name:  bootstrap.AttributeId,
 				Value: id,
 			},
 			{
-				Name:  "name",
+				Name:  bootstrap.AttributeName,
 				Value: formname,
 			},
 			{
-				Name:  "value",
+				Name:  bootstrap.AttributeValue,
 				Value: formvalue,
 			},
 		},
 	}
 	return cbox
 }
-
-/*
-<div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-  <label class="form-check-label" for="flexCheckDefault">
-    Default checkbox
-  </label>
-</div>
-*/

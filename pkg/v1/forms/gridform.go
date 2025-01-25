@@ -93,7 +93,6 @@ func checkHasTitle(ctrl GridForm) *h.Element {
 				h.Text(fmt.Sprintf("Fetched: %s", time.Now().Format(layout))),
 			),
 		)
-
 	}
 	return h.Div(
 		h.Class(bootstrap.Col),

@@ -37,7 +37,7 @@ func (ctrl SidebarMenu) ToHTML() *h.Element {
 		h.Class("sidebar", "border", "border-right", bootstrap.ColMD3, bootstrap.ColLG2, "p-0", "bg-body-tertiary"),
 		// "collapse" "d-md-block", ,
 		h.Div(
-			h.Attribute("id", "sidebarMenu"),
+			h.Attribute(bootstrap.AttributeId, "sidebarMenu"),
 			//h.Class("position-sticky", "pt-3", bootstrap.StickySidebar),
 			h.Class("offcanvas-md", "offcanvas-end", "bg-body-tertiary"),
 			h.Div(
@@ -64,7 +64,7 @@ func renderListItems(item NavMenuItem, index int) *h.Element {
 		)
 	case NavHrefBlank:
 		return h.Li(
-			h.Class("nav-item"),
+			h.Class(bootstrap.NavItem),
 			h.A(
 				h.Class("nav-link", "d-flex", "align-items-center", "gap-2"),
 				h.Attribute("href", item.HREF),
@@ -74,7 +74,7 @@ func renderListItems(item NavMenuItem, index int) *h.Element {
 		)
 	case NavHref:
 		return h.Li(
-			h.Class("nav-item"),
+			h.Class(bootstrap.NavItem),
 			h.A(
 				h.Class("nav-link", "d-flex", "align-items-center", "gap-2"),
 				h.Attribute("href", item.HREF),
@@ -83,7 +83,7 @@ func renderListItems(item NavMenuItem, index int) *h.Element {
 		)
 	case NavButton:
 		return h.Li(
-			h.Class("nav-item"),
+			h.Class(bootstrap.NavItem),
 			h.Button(
 				h.Class("nav-link", "active", "d-flex", "align-items-center", "gap-2"),
 				h.Attribute("aria-current", "page"),

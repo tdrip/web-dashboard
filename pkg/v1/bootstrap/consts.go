@@ -1,6 +1,16 @@
 package bootstrap
 
 const (
+	AttributeId         = "id"
+	AttributeValue      = "value"
+	AttributeName       = "name"
+	AttributeChecked    = "checked"
+	Card                = "card"
+	CardHeader          = "card-header"
+	CardFooter          = "card-footer"
+	CardBody            = "card-body"
+	CardTitle           = "card-title"
+	CardSubtitle        = "card-subtitle"
 	Modal               = "modal"
 	ModalBlur           = "modal-blur"
 	ModalDialog         = "modal-dialog"
@@ -37,6 +47,7 @@ const (
 	ButtonDanger        = Button + "-danger"
 	ButtonWarning       = Button + "-warning"
 	FormSelect          = "form-select"
+	NavItem             = "nav-item"
 )
 
 const ThemeSwitcher = `
