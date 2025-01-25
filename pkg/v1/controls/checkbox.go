@@ -2,7 +2,7 @@ package controls
 
 import (
 	"github.com/maddalax/htmgo/framework/h"
-	"github.com/tdrip/web-dashboard/pkg/v1/bootstrap"
+	atts "github.com/tdrip/web-dashboard/pkg/v1/atts"
 )
 
 type Checkbox struct {
@@ -33,7 +33,7 @@ func (ctrl Checkbox) SetAtts(atts []*h.AttributeR) BaseControl {
 func (ctrl Checkbox) ToHTML() *h.Element {
 	id := ""
 	for _, att := range ctrl.Attributes {
-		if att.Name == bootstrap.AttributeId {
+		if att.Name == atts.Id {
 			id = att.Value
 			break
 		}
@@ -47,7 +47,7 @@ func (ctrl Checkbox) ToHTML() *h.Element {
 		),
 		h.Label(
 			h.Class("form-check-label"),
-			h.Attribute("for", id),
+			h.Attribute(atts.For, id),
 			h.Text(ctrl.Text),
 		),
 	)
@@ -59,19 +59,19 @@ func NewCheckedCheckbox(text string, id string, formname string, formvalue strin
 		Text: text,
 		Attributes: []*h.AttributeR{
 			{
-				Name:  bootstrap.AttributeId,
+				Name:  atts.Id,
 				Value: id,
 			},
 			{
-				Name:  bootstrap.AttributeChecked,
+				Name:  atts.Checked,
 				Value: "",
 			},
 			{
-				Name:  bootstrap.AttributeName,
+				Name:  atts.Name,
 				Value: formname,
 			},
 			{
-				Name:  bootstrap.AttributeValue,
+				Name:  atts.Value,
 				Value: formvalue,
 			},
 		},
@@ -84,15 +84,15 @@ func NewUnCheckedCheckbox(text string, id string, formname string, formvalue str
 		Text: text,
 		Attributes: []*h.AttributeR{
 			{
-				Name:  bootstrap.AttributeId,
+				Name:  atts.Id,
 				Value: id,
 			},
 			{
-				Name:  bootstrap.AttributeName,
+				Name:  atts.Name,
 				Value: formname,
 			},
 			{
-				Name:  bootstrap.AttributeValue,
+				Name:  atts.Value,
 				Value: formvalue,
 			},
 		},

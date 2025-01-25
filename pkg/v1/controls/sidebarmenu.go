@@ -3,6 +3,7 @@ package controls
 import (
 	"github.com/maddalax/htmgo/framework/h"
 	"github.com/maddalax/htmgo/framework/hx"
+	atts "github.com/tdrip/web-dashboard/pkg/v1/atts"
 	"github.com/tdrip/web-dashboard/pkg/v1/bootstrap"
 )
 
@@ -37,7 +38,7 @@ func (ctrl SidebarMenu) ToHTML() *h.Element {
 		h.Class("sidebar", "border", "border-right", bootstrap.ColMD3, bootstrap.ColLG2, "p-0", "bg-body-tertiary"),
 		// "collapse" "d-md-block", ,
 		h.Div(
-			h.Attribute(bootstrap.AttributeId, "sidebarMenu"),
+			h.Attribute(atts.Id, "sidebarMenu"),
 			//h.Class("position-sticky", "pt-3", bootstrap.StickySidebar),
 			h.Class("offcanvas-md", "offcanvas-end", "bg-body-tertiary"),
 			h.Div(
@@ -67,8 +68,8 @@ func renderListItems(item NavMenuItem, index int) *h.Element {
 			h.Class(bootstrap.NavItem),
 			h.A(
 				h.Class("nav-link", "d-flex", "align-items-center", "gap-2"),
-				h.Attribute("href", item.HREF),
-				h.Attribute("target", "_blank"),
+				h.Attribute(atts.Href, item.HREF),
+				h.Attribute(atts.Target, "_blank"),
 				h.Text(item.Title),
 			),
 		)
@@ -77,7 +78,7 @@ func renderListItems(item NavMenuItem, index int) *h.Element {
 			h.Class(bootstrap.NavItem),
 			h.A(
 				h.Class("nav-link", "d-flex", "align-items-center", "gap-2"),
-				h.Attribute("href", item.HREF),
+				h.Attribute(atts.Href, item.HREF),
 				h.Text(item.Title),
 			),
 		)

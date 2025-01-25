@@ -1,10 +1,6 @@
 package bootstrap
 
 const (
-	AttributeId         = "id"
-	AttributeValue      = "value"
-	AttributeName       = "name"
-	AttributeChecked    = "checked"
 	Card                = "card"
 	CardHeader          = "card-header"
 	CardFooter          = "card-footer"
