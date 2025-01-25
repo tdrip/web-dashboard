@@ -9,9 +9,9 @@ type Modal struct {
 	BaseControl
 	Attributes []*h.AttributeR
 	Classes    []string
-	Header     ModalHeader
-	Body       ModalBody
-	Footer     ModalFooter
+	Header     BaseControl
+	Body       BaseControl
+	Footer     BaseControl
 }
 
 func (ctrl Modal) GetClasses() []string {
