@@ -56,3 +56,7 @@ func (ctrl Option) ToHTML() *h.Element {
 		h.Text(ctrl.Text),
 	)
 }
+
+func ListOptions(ctrl Option, index int) *h.Element {
+	return ctrl.ToHTML()
+}

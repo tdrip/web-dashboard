@@ -85,13 +85,12 @@ func checkHasTitle(ctrl GridForm) *h.Element {
 	}
 
 	if ctrl.HasUpdateTime {
+		bdg := controls.Badge{}
+		bdg.Text = fmt.Sprintf("Fetched: %s", time.Now().Format(layout))
 		return h.Div(
 			h.Class(bootstrap.Col),
 			h.H1F(ctrl.Title),
-			h.Span(
-				h.Class("badge", "text-bg-secondary"),
-				h.Text(fmt.Sprintf("Fetched: %s", time.Now().Format(layout))),
-			),
+			bdg.ToHTML(),
 		)
 	}
 	return h.Div(

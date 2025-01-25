@@ -40,3 +40,7 @@ func (ctrl Card) ToHTML() *h.Element {
 		ctrl.Footer.ToHTML(),
 	)
 }
+
+func ListCards(ctrl Card, index int) *h.Element {
+	return ctrl.ToHTML()
+}

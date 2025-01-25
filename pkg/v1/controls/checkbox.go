@@ -99,3 +99,7 @@ func NewUnCheckedCheckbox(text string, id string, formname string, formvalue str
 	}
 	return cbox
 }
+
+func ListCheckboxes(ctrl Checkbox, index int) *h.Element {
+	return ctrl.ToHTML()
+}

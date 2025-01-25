@@ -33,10 +33,10 @@ func (ctrl Select) ToHTML() *h.Element {
 	return h.Select(
 		h.Class(ctrl.Classes...),
 		h.AttributeList(ctrl.Attributes...),
-		h.List(ctrl.Options, OptionItems),
+		h.List(ctrl.Options, ListOptions),
 	)
 }
 
-func OptionItems(opt Option, index int) *h.Element {
-	return opt.ToHTML()
+func ListSelects(ctrl Select, index int) *h.Element {
+	return ctrl.ToHTML()
 }
