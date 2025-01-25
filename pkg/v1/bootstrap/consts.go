@@ -3,6 +3,8 @@ package bootstrap
 const (
 	RoundedPill         = "rounded-pill"
 	Badge               = "badge"
+	Breadcrumb          = "breadcrumb"
+	BreadcrumbItem      = "breadcrumb-item"
 	Card                = "card"
 	CardHeader          = "card-header"
 	CardFooter          = "card-footer"

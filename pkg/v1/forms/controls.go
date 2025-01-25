@@ -5,6 +5,8 @@ import (
 	"github.com/tdrip/web-dashboard/pkg/v1/controls"
 )
 
+type GetBreadCrumbs func() controls.Breadcrumbs
+
 func GetInputControl(id string, title string, name string, value string, readonly bool) *h.Element {
 
 	fc := FormControl{}

@@ -177,6 +177,21 @@ func NewCardRow(cards []controls.Card) controls.CardRow {
 	}
 }
 
+func GetBreadCrumbs() controls.Breadcrumbs {
+	bc := controls.Breadcrumbs{}
+	bc.Crumbs = []controls.Breadcrumb{
+		{
+			Text: "Home",
+			Href: "/",
+		},
+		{
+			Text: "edit",
+			Href: "/",
+		},
+	}
+	return bc
+}
+
 func NewGF() forms.GridForm {
 	gf := forms.GridForm{}
 	gf.Title = "A grid form"
@@ -207,6 +222,8 @@ func NewGF() forms.GridForm {
 			},
 		},
 	}
+
+	//gf.BreadCrumbs = GetBreadCrumbs
 	return gf
 }
 

@@ -24,6 +24,7 @@ type GridForm struct {
 	IsForm        bool
 	Attributes    []*h.AttributeR
 	Classes       []string
+	BreadCrumbs   GetBreadCrumbs
 }
 
 func (ctrl GridForm) DataFromContext(ctx *h.RequestContext) render.IPartial {
@@ -46,6 +47,7 @@ func (ctrl GridForm) Render() *h.Partial {
 						h.Class("row", "d-flex", "justify-content-between", "flex-wrap", "flex-md-nowrap", "align-items-center", "pt-3", "pb-2", "mb-3", "border-bottom"),
 						checkHasTitle(ctrl),
 						checkGetNew(ctrl),
+						checkBreadCrumbs(ctrl),
 					),
 					h.Div(
 						h.Class(bootstrap.Row),
@@ -66,6 +68,7 @@ func (ctrl GridForm) Render() *h.Partial {
 				h.Class("row", "d-flex", "justify-content-between", "flex-wrap", "flex-md-nowrap", "align-items-center", "pt-3", "pb-2", "mb-3", "border-bottom"),
 				checkHasTitle(ctrl),
 				checkGetNew(ctrl),
+				checkBreadCrumbs(ctrl),
 			),
 			h.Div(
 				h.Class(bootstrap.Row),
@@ -77,6 +80,14 @@ func (ctrl GridForm) Render() *h.Partial {
 		),
 	)
 
+}
+
+func checkBreadCrumbs(ctrl GridForm) *h.Element {
+	if ctrl.BreadCrumbs == nil {
+		return h.Empty()
+	}
+	crmbs := ctrl.BreadCrumbs()
+	return crmbs.ToHTML()
 }
 
 func checkHasTitle(ctrl GridForm) *h.Element {
