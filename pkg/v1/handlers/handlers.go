@@ -3,9 +3,21 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/go-chi/chi/v5"
 	"github.com/tdrip/web-dashboard/pkg/v1/render"
 )
+
+type Router interface {
+	// HTTP-method routing along `pattern`
+	Connect(pattern string, h http.HandlerFunc)
+	Delete(pattern string, h http.HandlerFunc)
+	Get(pattern string, h http.HandlerFunc)
+	Head(pattern string, h http.HandlerFunc)
+	Options(pattern string, h http.HandlerFunc)
+	Patch(pattern string, h http.HandlerFunc)
+	Post(pattern string, h http.HandlerFunc)
+	Put(pattern string, h http.HandlerFunc)
+	Trace(pattern string, h http.HandlerFunc)
+}
 
 type Handler struct {
 	HttpMethod string
@@ -18,7 +30,7 @@ type Handlers struct {
 	IPartials []PartialRenderHandler
 }
 
-func (h Handlers) RegisterRouter(router chi.Router) {
+func (h Handlers) RegisterRouter(router Router) {
 
 	for _, hndlr := range h.IPartials {
 		switch hndlr.HttpMethod {
