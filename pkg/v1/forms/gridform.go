@@ -87,6 +87,9 @@ func checkHasTitle(ctrl GridForm) *h.Element {
 	if ctrl.HasUpdateTime {
 		bdg := controls.Badge{}
 		bdg.Text = fmt.Sprintf("Fetched: %s", time.Now().Format(layout))
+		bdg.Coloring = controls.Secondary
+		bdg.IsRoundedPill = true
+
 		return h.Div(
 			h.Class(bootstrap.Col),
 			h.H1F(ctrl.Title),

@@ -1,6 +1,8 @@
 package bootstrap
 
 const (
+	RoundedPill         = "rounded-pill"
+	Badge               = "badge"
 	Card                = "card"
 	CardHeader          = "card-header"
 	CardFooter          = "card-footer"
