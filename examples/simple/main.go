@@ -48,6 +48,7 @@ func main() {
 	pg.SidebarMenu = controls.SidebarMenu{
 		MenuItems: []controls.NavMenuItem{
 			controls.NewNavButton("show grid form", "/gridform", "#mainpage"),
+			controls.NewNavButton("show card form", "/cardform", "#mainpage"),
 			controls.NewNavHRule(),
 		},
 	}
@@ -63,11 +64,117 @@ func main() {
 		render.RenderIPartial(request, writer, NewGF())
 	})
 
+	router.Get("/cardform", func(writer http.ResponseWriter, request *http.Request) {
+		render.RenderIPartial(request, writer, NewCF())
+	})
+
 	router.Get("/edititem/{id}", func(writer http.ResponseWriter, request *http.Request) {
 		render.RenderIPartial(request, writer, NewSillyForm())
 	})
 
 	http.ListenAndServe(":3000", router)
+}
+
+func NewCF() forms.CardGrid {
+	gf := forms.CardGrid{}
+	gf.CardRows = []controls.CardRow{
+		NewCardRow(
+			[]controls.Card{
+				{
+					Header: controls.CardHeader{
+						Title: "Row 1 - Card1",
+					},
+					Body: controls.CardBody{
+						DrawControl: NewCardBody,
+					},
+					Footer: controls.Empty{},
+				},
+				{
+					Header: controls.CardHeader{
+						Title: "Row 1 - Card2",
+					},
+					Body: controls.CardBody{
+						DrawControl: NewCardBody,
+					},
+					Footer: controls.Empty{},
+				},
+				{
+					Header: controls.CardHeader{
+						Title: "Row 1 - Card3",
+					},
+					Body: controls.CardBody{
+						DrawControl: NewCardBody,
+					},
+					Footer: controls.Empty{},
+				},
+				/*
+					{
+						Header: controls.CardHeader{
+							Title: "Row 1 - Card4",
+						},
+						Body: controls.CardBody{
+							DrawControl: NewCardBody,
+						},
+						Footer: controls.Empty{},
+					},
+				*/
+			},
+		),
+		NewCardRow(
+			[]controls.Card{
+				{
+					Header: controls.CardHeader{
+						Title: "Row 2 - Card1",
+					},
+					Body: controls.CardBody{
+						DrawControl: NewCardBody,
+					},
+					Footer: controls.Empty{},
+				},
+				{
+					Header: controls.CardHeader{
+						Title: "Row 2 - Card2",
+					},
+					Body: controls.CardBody{
+						DrawControl: NewCardBody,
+					},
+					Footer: controls.Empty{},
+				},
+				{
+					Header: controls.CardHeader{
+						Title: "Row 2 - Card3",
+					},
+					Body: controls.CardBody{
+						DrawControl: NewCardBody,
+					},
+					Footer: controls.Empty{},
+				},
+				/*
+					{
+						Header: controls.CardHeader{
+							Title: "Row 2 - Card4",
+						},
+						Body: controls.CardBody{
+							DrawControl: NewCardBody,
+						},
+						Footer: controls.Empty{},
+					},
+				*/
+			},
+		),
+	}
+	return gf
+}
+
+func NewCardBody() *h.Element {
+	return h.H1F("I am the card body")
+}
+
+func NewCardRow(cards []controls.Card) controls.CardRow {
+	return controls.CardRow{
+		CardsPerRow: controls.ThreePerRow,
+		Cards:       cards,
+	}
 }
 
 func NewGF() forms.GridForm {
@@ -103,12 +210,8 @@ func NewGF() forms.GridForm {
 	return gf
 }
 
-type SillyForm struct {
-	forms.EditForm
-}
-
-func NewSillyForm() SillyForm {
-	sf := SillyForm{}
+func NewSillyForm() forms.EditForm {
+	sf := forms.EditForm{}
 	sf.GetFormData = GetFakeFormData
 	sf.Controls = []forms.FormControl{
 		{
@@ -205,7 +308,7 @@ func getTable() controls.Table {
 	tbl.Classes = controls.SetClasses(tbl, []string{"table-responsive", "small", bootstrap.TableClass, "table-striped", "table-sm", "delete-row-example"})
 	tbl.TableHeaders = controls.GetSimpleTableHeaders([]string{"unused?", "col1", "col2", "actions"})
 	tbl.TableBody = controls.TableBody{
-		GetTableRows: GetTableRows,
+		DrawControl: GetTableRows,
 	}
 	return tbl
 }
