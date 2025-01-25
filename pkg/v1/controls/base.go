@@ -10,24 +10,24 @@ type BaseControl interface {
 	ToHTML() *h.Element
 }
 
-func SetClasses(bci BaseControl, classes []string) []string {
-	nclasses := bci.GetClasses()
+func SetClasses(ctrl BaseControl, classes []string) []string {
+	nclasses := ctrl.GetClasses()
 	nclasses = append(nclasses, classes...)
 	return nclasses
 }
 
-func SetAtts(bci BaseControl, atts []*h.AttributeR) []*h.AttributeR {
-	natts := bci.GetAtts()
+func SetAtts(ctrl BaseControl, atts []*h.AttributeR) []*h.AttributeR {
+	natts := ctrl.GetAtts()
 	natts = append(natts, atts...)
 	return natts
 }
 
-func SetAtt(bci BaseControl, Name string, Value string) []*h.AttributeR {
-	return SetAttR(bci, &h.AttributeR{Name: Name, Value: Value})
+func SetAtt(ctrl BaseControl, Name string, Value string) []*h.AttributeR {
+	return SetAttR(ctrl, &h.AttributeR{Name: Name, Value: Value})
 }
 
-func SetAttR(bci BaseControl, val *h.AttributeR) []*h.AttributeR {
-	natts := bci.GetAtts()
+func SetAttR(ctrl BaseControl, val *h.AttributeR) []*h.AttributeR {
+	natts := ctrl.GetAtts()
 	natts = append(natts, val)
 	return natts
 }
@@ -36,22 +36,26 @@ func GetAttId(Id string) *h.AttributeR {
 	return &h.AttributeR{Name: "id", Value: Id}
 }
 
-func SetAttId(bci BaseControl, Id string) []*h.AttributeR {
-	return SetAttR(bci, GetAttId(Id))
+func SetAttId(ctrl BaseControl, Id string) []*h.AttributeR {
+	return SetAttR(ctrl, GetAttId(Id))
 }
 
 func GetAttName(Name string) *h.AttributeR {
 	return &h.AttributeR{Name: "name", Value: Name}
 }
 
-func SetAttName(bci BaseControl, Name string) []*h.AttributeR {
-	return SetAttR(bci, GetAttName(Name))
+func SetAttName(ctrl BaseControl, Name string) []*h.AttributeR {
+	return SetAttR(ctrl, GetAttName(Name))
 }
 
 func GetAttValue(Value string) *h.AttributeR {
 	return &h.AttributeR{Name: "value", Value: Value}
 }
 
-func SetAttValue(bci BaseControl, Value string) []*h.AttributeR {
-	return SetAttR(bci, GetAttValue(Value))
+func SetAttValue(ctrl BaseControl, Value string) []*h.AttributeR {
+	return SetAttR(ctrl, GetAttValue(Value))
+}
+
+func BaseControlItems(ctrl BaseControl, index int) *h.Element {
+	return ctrl.ToHTML()
 }
