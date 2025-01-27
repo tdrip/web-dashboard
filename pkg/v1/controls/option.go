@@ -15,6 +15,15 @@ type Option struct {
 	Classes    []string
 }
 
+func NewSimpleOptions(values []string, selectedv string) []Option {
+	opts := []Option{}
+	for _, v := range values {
+		opts = append(opts, NewSimpleOption(v, selectedv))
+	}
+
+	return opts
+}
+
 func NewSimpleOption(v string, selectedv string) Option {
 	return Option{
 		Text:     v,
