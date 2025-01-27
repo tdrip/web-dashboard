@@ -2,6 +2,7 @@ package render
 
 import (
 	"github.com/maddalax/htmgo/framework/h"
+	"github.com/tdrip/web-dashboard/pkg/v1/bootstrap"
 	"github.com/tdrip/web-dashboard/pkg/v1/controls"
 )
 
@@ -25,7 +26,7 @@ func (ctrl Site) GetPage(ctx *h.RequestContext) *h.Page {
 				h.BaseExtensions(),
 			),
 			h.Attribute("lang", "en"),
-			h.Attribute("data-bs-theme", "light"),
+			h.Attribute(bootstrap.AttDataTheme, "light"),
 			h.Head(
 				h.Meta("viewport", "wid=device-width initial-scale=1"),
 				h.Meta("theme-color", "#712cf9"),

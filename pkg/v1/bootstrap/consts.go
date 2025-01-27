@@ -1,6 +1,9 @@
 package bootstrap
 
 const (
+	AttDataToggle       = "data-bs-toggle"
+	AttDataTarget       = "data-bs-target"
+	AttDataTheme        = "data-bs-theme"
 	RoundedPill         = "rounded-pill"
 	Badge               = "badge"
 	Breadcrumb          = "breadcrumb"

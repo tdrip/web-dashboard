@@ -44,7 +44,7 @@ func (ctrl GridForm) Render() *h.Partial {
 					h.Class(ctrl.Classes...),
 					h.AttributeList(ctrl.Attributes...),
 					h.Div(
-						h.Class("row", "d-flex", "justify-content-between", "flex-wrap", "flex-md-nowrap", "align-items-center", "pt-3", "pb-2", "mb-3", "border-bottom"),
+						h.Class(bootstrap.Row, "d-flex", "justify-content-between", "flex-wrap", "flex-md-nowrap", "align-items-center", "pt-3", "pb-2", "mb-3", "border-bottom"),
 						checkHasTitle(ctrl),
 						checkGetNew(ctrl),
 						checkBreadCrumbs(ctrl),
@@ -65,7 +65,7 @@ func (ctrl GridForm) Render() *h.Partial {
 			h.Class(ctrl.Classes...),
 			h.AttributeList(ctrl.Attributes...),
 			h.Div(
-				h.Class("row", "d-flex", "justify-content-between", "flex-wrap", "flex-md-nowrap", "align-items-center", "pt-3", "pb-2", "mb-3", "border-bottom"),
+				h.Class(bootstrap.Row, "d-flex", "justify-content-between", "flex-wrap", "flex-md-nowrap", "align-items-center", "pt-3", "pb-2", "mb-3", "border-bottom"),
 				checkHasTitle(ctrl),
 				checkGetNew(ctrl),
 				checkBreadCrumbs(ctrl),

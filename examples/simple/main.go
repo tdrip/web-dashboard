@@ -212,11 +212,11 @@ func NewGF() forms.GridForm {
 					Value: "#topmodal",
 				},
 				{
-					Name:  "data-bs-toggle",
+					Name:  bootstrap.AttDataToggle,
 					Value: "modal",
 				},
 				{
-					Name:  "data-bs-target",
+					Name:  bootstrap.AttDataTarget,
 					Value: "#topmodal",
 				},
 			},
