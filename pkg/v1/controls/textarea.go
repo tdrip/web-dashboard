@@ -14,6 +14,7 @@ type TextArea struct {
 	ReadOnly   bool
 	Rows       int
 	Columns    int
+	Text       string
 }
 
 func (ctrl TextArea) GetClasses() []string {
@@ -51,6 +52,7 @@ func (ctrl TextArea) ToHTML() *h.Element {
 	return h.TextArea(
 		h.Class(bootstrap.FormControl),
 		h.AttributeList(ctrl.Attributes...),
+		h.Text(ctrl.Text),
 	)
 
 }
