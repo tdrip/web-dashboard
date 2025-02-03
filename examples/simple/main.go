@@ -166,7 +166,7 @@ func NewCF() forms.CardGrid {
 	return gf
 }
 
-func NewCardBody() *h.Element {
+func NewCardBody(Id string) *h.Element {
 	return h.H1F("I am the card body")
 }
 
@@ -256,6 +256,15 @@ func NewSillyForm() forms.EditForm {
 			},
 		},
 		{
+			Id:    "itemtexta",
+			Title: "Type Something",
+			Name:  "itemtexta",
+			Cntrl: controls.TextArea{
+				Rows:    20,
+				Columns: 20,
+			},
+		},
+		{
 			Id:    "itemtable",
 			Title: "Update this table",
 			Name:  "itemname",
@@ -330,7 +339,7 @@ func getTable() controls.Table {
 	return tbl
 }
 
-func GetTableRows() *h.Element {
+func GetTableRows(Id string) *h.Element {
 	rows := []string{}
 
 	for i := 0; i < 100; i++ {

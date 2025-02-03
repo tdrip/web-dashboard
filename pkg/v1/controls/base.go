@@ -2,7 +2,7 @@ package controls
 
 import "github.com/maddalax/htmgo/framework/h"
 
-type DrawControl func() *h.Element
+type DrawControl func(id string) *h.Element
 
 type BaseControl interface {
 	GetClasses() []string

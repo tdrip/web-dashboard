@@ -10,13 +10,14 @@ type CardBody struct {
 	Attributes  []*h.AttributeR
 	Classes     []string
 	DrawControl DrawControl
+	Id          string
 }
 
 func (ctrl CardBody) ToHTML() *h.Element {
 	return h.Div(
 		h.Class(bootstrap.CardBody),
 		h.AttributeList(ctrl.Attributes...),
-		ctrl.DrawControl(),
+		ctrl.DrawControl(ctrl.Id),
 	)
 }
 

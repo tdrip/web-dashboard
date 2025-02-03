@@ -5,8 +5,6 @@ import (
 	bootstrap "github.com/tdrip/web-dashboard/pkg/v1/bootstrap"
 )
 
-type GetModal func(id string) *h.Element
-
 type PageBody struct {
 	BaseControl
 	Attributes       []*h.AttributeR
@@ -15,12 +13,14 @@ type PageBody struct {
 	Title            string
 	RawItem          string
 	Scripts          []string
-	GetModal         GetModal
+	GetModal         DrawControl
 	HasModal         bool
 	GetBodyHeader    DrawControl
 	GetBodyMain      DrawControl
 	HasThemeSwicther bool
 	Id               string
+	BodyId           string
+	HeaderId         string
 	ModalId          string
 }
 
@@ -58,10 +58,8 @@ func (ctrl PageBody) ToHTML() *h.Element {
 				h.Main(
 					h.Class(bootstrap.ColMD9, "ms-sm-atuo", bootstrap.ColLG10, "px-md-4"),
 					ctrl.GetPageTitle(),
-					//h.Div(
 					h.Attribute("id", ctrl.Id),
 					ctrl.checkGetBodyMain(),
-					//),
 				),
 			),
 		),
@@ -80,14 +78,14 @@ func (ctrl PageBody) checkGetBodyMain() *h.Element {
 	if ctrl.GetBodyMain == nil {
 		return h.Empty()
 	}
-	return ctrl.GetBodyMain()
+	return ctrl.GetBodyMain(ctrl.BodyId)
 }
 
 func (ctrl PageBody) checkGetBodyHeader() *h.Element {
 	if ctrl.GetBodyHeader == nil {
 		return h.Empty()
 	}
-	return ctrl.GetBodyHeader()
+	return ctrl.GetBodyHeader(ctrl.HeaderId)
 }
 
 func (ctrl PageBody) checkGetModals() *h.Element {
@@ -115,7 +113,7 @@ func (ctrl PageBody) GetPageTitle() *h.Element {
 	)
 }
 
-func (ctrl PageBody) SimpleNav() *h.Element {
+func (ctrl PageBody) SimpleNav(Id string) *h.Element {
 	return h.Header(
 		h.Class(bootstrap.NavBarClass, bootstrap.NavBarDarkClass, bootstrap.StickyTop, bootstrap.BGDark, bootstrap.FlexMDNoWrap, "p-0", "shadow"),
 		h.A(

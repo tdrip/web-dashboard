@@ -16,6 +16,7 @@ type Breadcrumb struct {
 	IsActive    bool
 	Href        string
 	DrawControl DrawControl
+	Id          string
 }
 
 func (ctrl Breadcrumb) GetClasses() []string {
@@ -55,7 +56,7 @@ func (ctrl Breadcrumb) ToHTML() *h.Element {
 			h.Class(bootstrap.BreadcrumbItem),
 			h.Class(ctrl.Classes...),
 			h.AttributeList(ctrl.Attributes...),
-			ctrl.DrawControl(),
+			ctrl.DrawControl(ctrl.Id),
 		)
 	}
 	return h.Li(

@@ -10,6 +10,7 @@ type CardFooter struct {
 	Attributes  []*h.AttributeR
 	Classes     []string
 	DrawControl DrawControl
+	Id          string
 }
 
 func (ctrl CardFooter) ToHTML() *h.Element {
@@ -17,7 +18,7 @@ func (ctrl CardFooter) ToHTML() *h.Element {
 	return h.Div(
 		h.Class(classes...),
 		h.AttributeList(ctrl.Attributes...),
-		ctrl.DrawControl(),
+		ctrl.DrawControl(ctrl.Id),
 	)
 }
 
