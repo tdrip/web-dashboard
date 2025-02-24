@@ -1,6 +1,14 @@
 package bootstrap
 
 const (
+	TextBGPrimary       = "text-bg-primary"
+	TextBGSecondary     = "text-bg-secondary"
+	TextBGSuccess       = "text-bg-success"
+	TextBGDanger        = "text-bg-danger"
+	TextBGWarning       = "text-bg-warning"
+	TextBGInfo          = "text-bg-info"
+	TextBGLight         = "text-bg-light"
+	TextBGDark          = "text-bg-dark"
 	AttDataToggle       = "data-bs-toggle"
 	AttDataTarget       = "data-bs-target"
 	AttDataTheme        = "data-bs-theme"
@@ -44,6 +52,7 @@ const (
 	Col                 = "col"
 	Button              = "btn"
 	TableClass          = "table"
+	TableResponsive     = "table-responsive"
 	ButtonSuccess       = Button + "-success"
 	ButtonPrimary       = Button + "-primary"
 	ButtonSecondary     = Button + "-secondary"

@@ -53,21 +53,21 @@ func (ctrl Badge) ToHTML() *h.Element {
 	case None:
 		colouring = ""
 	case Primary:
-		colouring = "text-bg-primary"
+		colouring = bootstrap.TextBGPrimary
 	case Secondary:
-		colouring = "text-bg-secondary"
+		colouring = bootstrap.TextBGSecondary
 	case Success:
-		colouring = "text-bg-success"
+		colouring = bootstrap.TextBGSuccess
 	case Danger:
-		colouring = "text-bg-danger"
+		colouring = bootstrap.TextBGDanger
 	case Warning:
-		colouring = "text-bg-warning"
+		colouring = bootstrap.TextBGWarning
 	case Info:
-		colouring = "text-bg-info"
+		colouring = bootstrap.TextBGInfo
 	case Light:
-		colouring = "text-bg-light"
+		colouring = bootstrap.TextBGLight
 	case Dark:
-		colouring = "text-bg-dark"
+		colouring = bootstrap.TextBGDark
 	}
 
 	if ctrl.IsRoundedPill {
