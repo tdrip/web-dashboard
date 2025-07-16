@@ -65,9 +65,9 @@ func renderListItems(item NavMenuItem, index int) *h.Element {
 		)
 	case NavHrefBlank:
 		return h.Li(
-			h.Class(bootstrap.NavItem),
+			h.Class(bootstrap.NavItemClass),
 			h.A(
-				h.Class("nav-link", "d-flex", "align-items-center", "gap-2"),
+				h.Class(bootstrap.NavLinkClass, "d-flex", "align-items-center", "gap-2"),
 				h.Attribute(atts.Href, item.HREF),
 				h.Attribute(atts.Target, "_blank"),
 				h.Text(item.Title),
@@ -75,18 +75,18 @@ func renderListItems(item NavMenuItem, index int) *h.Element {
 		)
 	case NavHref:
 		return h.Li(
-			h.Class(bootstrap.NavItem),
+			h.Class(bootstrap.NavItemClass),
 			h.A(
-				h.Class("nav-link", "d-flex", "align-items-center", "gap-2"),
+				h.Class(bootstrap.NavLinkClass, "d-flex", "align-items-center", "gap-2"),
 				h.Attribute(atts.Href, item.HREF),
 				h.Text(item.Title),
 			),
 		)
 	case NavButton:
 		return h.Li(
-			h.Class(bootstrap.NavItem),
+			h.Class(bootstrap.NavItemClass),
 			h.Button(
-				h.Class("nav-link", "active", "d-flex", "align-items-center", "gap-2"),
+				h.Class(bootstrap.NavLinkClass, bootstrap.ActiveClass, "d-flex", "align-items-center", "gap-2"),
 				h.Attribute("aria-current", "page"),
 				h.HxTarget(item.Target), //"#page-data"),
 				h.Attribute(hx.GetAttr, item.HREF),

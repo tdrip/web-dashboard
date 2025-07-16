@@ -43,6 +43,8 @@ const (
 	NavBarClass         = "navbar"
 	NavBarBrandClass    = "navbar-brand"
 	NavBarDarkClass     = "navbar-dark"
+	NavItemClass        = "nav-item"
+	NavLinkClass        = "nav-link"
 	StickyTop           = "sticky-top"
 	StickySidebar       = "sidebar-sticky"
 	BGDark              = "bg-dark"
@@ -59,7 +61,7 @@ const (
 	ButtonDanger        = Button + "-danger"
 	ButtonWarning       = Button + "-warning"
 	FormSelect          = "form-select"
-	NavItem             = "nav-item"
+	ActiveClass         = "active"
 )
 
 const ThemeSwitcher = `
