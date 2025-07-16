@@ -1,8 +1,6 @@
 package controls
 
 import (
-	"fmt"
-
 	"github.com/maddalax/htmgo/framework/h"
 	"github.com/tdrip/web-dashboard/pkg/v1/atts"
 	"github.com/tdrip/web-dashboard/pkg/v1/bootstrap"
@@ -76,11 +74,9 @@ func ListBreadcrumb(ctrl Breadcrumb, index int) *h.Element {
 
 func RenderBreadCrumbs(Crumbs []Breadcrumb) *h.Element {
 	last := len(Crumbs) - 1
-	fmt.Printf("last : %d", last)
 	updated := []Breadcrumb{}
 	for index, cr := range Crumbs {
 		if index == last {
-			fmt.Printf("IsActive : %d", index)
 			cr.IsActive = true
 		}
 		updated = append(updated, cr)

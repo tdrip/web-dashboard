@@ -28,7 +28,7 @@ func (ctrl Site) GetPage(ctx *h.RequestContext) *h.Page {
 			h.Attribute("lang", "en"),
 			h.Attribute(bootstrap.AttDataTheme, "light"),
 			h.Head(
-				h.Meta("viewport", "wid=device-width initial-scale=1"),
+				h.Meta("viewport", "width=device-width initial-scale=1"),
 				h.Meta("theme-color", "#712cf9"),
 				h.Title(h.Text(ctrl.Title)),
 				h.List(ctrl.HeaderScripts, scriptItems),
