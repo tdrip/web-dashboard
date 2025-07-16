@@ -90,6 +90,8 @@ func renderListItems(item NavMenuItem, index int) *h.Element {
 				h.Attribute("aria-current", "page"),
 				h.HxTarget(item.Target), //"#page-data"),
 				h.Attribute(hx.GetAttr, item.HREF),
+				// can be added later
+				//h.Attribute(hx.ReplaceUrlAttr,item.HREF),
 				h.Attribute(hx.SwapAttr, hx.SwapTypeInnerHtml),
 				h.Text(item.Title),
 			),
